@@ -1,0 +1,485 @@
+{% extends 'main.twig' %}
+ {% block contenthead %}
+
+     <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+         <div class="kt-subheader__main">
+             <h3 class="kt-subheader__title">
+                 Payments </h3>
+             <span class="kt-subheader__separator kt-hidden"></span>
+             <div class="kt-subheader__breadcrumbs">
+                 <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                 <span class="kt-subheader__breadcrumbs-separator"></span>
+                 <a href="" class="kt-subheader__breadcrumbs-link">
+                     Initiate Payment </a>
+
+             </div>
+         </div>
+
+     </div>
+ {% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <!--begin::Portlet-->
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            Initiate Payment Transaction
+                        </h3>
+                    </div>
+                </div>
+                <form class="kt-form">
+
+
+                    <div class=" kt-portlet__body">
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label">Choose Payment Option:</label>
+                            <div class="col-lg-9">
+                                <div class="kt-radio-inline">
+                                    <label class="kt-radio kt-radio--solid">
+                                        <input type="radio" name="payment"  value="1"> Single Worker
+                                        <span></span>
+                                    </label>
+                                    <label class="kt-radio kt-radio--solid">
+                                        <input type="radio" name="payment" value="2"> Worker Group
+                                        <span></span>
+                                    </label>
+                                    <label class="kt-radio kt-radio--solid">
+                                        <input type="radio" name="payment" value="3"> Excel Bulk Payments
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <span class="form-text text-muted">Choose the payment method to use</span>
+                            </div>
+                        </div>
+
+                    <div class="kt-section"  id="workgroup"   style="display:none;">
+                        <div class="form-group">
+                            <label>Product:</label>
+
+                                <select  id="product" name="product" class="form-control">
+                                    <option value="">Choose Product</option>
+                                    {% for product in products %}
+
+                                        <option value="{{ product.id }}"> {{ product.productName }} </option>
+                                    {% endfor %}
+                                </select>
+
+                        </div>
+                        <div class="form-group">
+                            <label>Worker Group:</label>
+
+                                <select  id="group" name="group" class="form-control">
+                                    <option value="">Choose Worker Group</option>
+                                    {% for group in groups %}
+
+                                        <option value="{{ group.id }}"> {{ group.groupName }} </option>
+                                    {% endfor %}
+                                </select>
+
+                        </div>
+                        <div class="form-group">
+                            <label>Total No of Workers:</label>
+
+                                <input type="text" id="total_workers" name="total_workers" class="form-control"/>
+
+                        </div>
+                        <div class="form-group">
+                            <label>Amount To Pay(Per Worker):</label>
+
+                                <input type="text" id="worker_amount" name="worker_amount" class="form-control"/>
+
+                        </div>
+                        <div class="form-group">
+                            <label>Total Transaction Cost:</label>
+
+                            <input type="text" id="transaction_cost" name="transaction_cost" class="form-control"/>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label>Total Payout:</label>
+
+                                <input type="text" id="total_payouts" name="total_payouts" class="form-control"/>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Comments:</label>
+
+                                <textarea id="comments" name="comments" class="form-control">
+                                </textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="kt-section" id="single" style="dislay:none;">
+                        <div class="form-group row form-group-marginless kt-margin-t-20">
+                            <label class="col-lg-1 col-form-label">First Name:</label>
+                            <div class="col-lg-3">
+                                <input type="text" id="first_name" name="first_name" class="form-control"/>
+                            </div>
+                            <label class="col-lg-1 col-form-label">Middle Name:</label>
+                            <div class="col-lg-3">
+                                <input type="text" id="middle_name" name="middle_name" class="form-control"/>
+                            </div>
+                            <label class="col-lg-1 col-form-label">Last Name:</label>
+                            <div class="col-lg-3">
+                                <input type="text" id="last_name" name="last_name" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
+
+                        <div class="form-group row form-group-marginless kt-margin-t-20">
+                            <label class="col-lg-1 col-form-label">Phone Number:</label>
+                            <div class="col-lg-3">
+                                <input type="text" id="phone_number" name="phone_number" class="form-control"/>
+
+                            </div>
+                            <label class="col-lg-1 col-form-label">ID Number:</label>
+                            <div class="col-lg-3">
+                                <input type="text" id="id_number" name="id_number" class="form-control"/>
+
+                            </div>
+                            <label class="col-lg-1 col-form-label">Payment Purpose:</label>
+                            <div class="col-lg-3">
+                                <select  id="product" name="product" class="form-control">
+                                    <option value="">Choose Purpose</option>
+                                    {% for product in products %}
+
+                                        <option value="{{ product.id }}"> {{ product.productName }} </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
+                        <div class="form-group row form-group-marginless">
+                            <label class="col-lg-1 col-form-label">Amount To Pay:</label>
+                            <div class="col-lg-3">
+                                <input type="text" id="worker_amount" name="worker_amount" class="form-control"/>
+
+                            </div>
+                            <label class="col-lg-1 col-form-label">Transaction Cost:</label>
+                            <div class="col-lg-3">
+                                <input type="text" id="transaction_cost" name="transaction_cost" class="form-control"/>
+
+                            </div>
+                            <label class="col-lg-1 col-form-label">Total Debited:</label>
+                            <div class="col-lg-3">
+                                <input type="text" id="total_payouts" name="total_payouts" class="form-control"/>
+
+                            </div>
+                        </div>
+                        <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
+                        <div class="form-group row form-group-marginless">
+                            <label class="col-lg-1 col-form-label">Comments:</label>
+                            <div class="col-lg-3">
+                                 <textarea id="comments" name="comments" class="form-control">
+                                </textarea>
+                            </div>
+
+                            <div class="col-lg-8">
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="kt-section" id="excel"  style="dislay:none;">
+                        <div class="form-group">
+                            <label>Product:</label>
+
+                            <select  id="product" name="product" class="form-control">
+                                <option value="">Choose Product</option>
+                                {% for product in products %}
+
+                                    <option value="{{ product.id }}"> {{ product.productName }} </option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
+                        <div class="form-group">
+                            <label>Upload Excel:</label>
+                            <input type="file" name="upload" id="upload" class="form-control" />
+                        </div>
+                    </div>
+                    </div>
+                    <div class="kt-portlet__foot">
+                        <div class="kt-form__actions">
+                            <div class="row">
+                                <div class="col-lg-5"></div>
+                                <div class="col-lg-7">
+                                <a href="{{ path_for('merchant.initiate-payment') }}" type="button" id="btn_cancel" class="btn btn-primary">Cancel</a>
+                                <button type="button" id="btn_save" class="btn btn-success">Make Payment</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    </form>
+
+
+            </div>
+
+            <!--end::Portlet-->
+        </div>
+
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#excel').hide();
+            $('#workgroup').hide();
+            $('#single').show();
+
+           $(document).on('change', 'input[name="payment"]:radio', function(){
+               var method=$(this).val();
+
+               if(method==1)
+               {
+                   $('#excel').hide();
+                   $('#workgroup').hide();
+                   $('#single').show();
+
+                   $('#btn_save').click(function () {
+                       alert('sinleeeeees');
+
+                       var first_name = $('#first_name').val();
+                       var last_name = $('#last_name').val();
+                       var middle_name = $('#middle_name').val();
+                       var phone_number=$('#phone_number').val();
+                       var id_number=$('#id_number').val();
+                       var product=$('#product').val();
+                       var worker_amount=$('#worker_amount').val();
+                       var transaction_cost=$('#transaction_cost').val();
+                       var total_payouts=$('#total_payouts').val();
+                       var comments=$('#comments').val();
+
+
+
+                       if (first_name == '') {
+                           toastr.error("Error Occured!!!", 'First Name is Required');
+                           return;
+                       }
+
+                       if (middle_name == '') {
+                           toastr.error("Error Occured!!!", 'Middle Name is Required');
+                           return;
+                       }
+                       if (last_name == '') {
+                           toastr.error("Error Occured!!!", 'Middle Name is Required');
+                           return;
+                       }
+                       if (id_number == '') {
+                           toastr.error("Error Occured!!!", 'You Must Enter An ID Number');
+                           return;
+                       }
+                       if (phone_number == '') {
+                           toastr.error("Error Occured!!!", 'You Must Provide The Worker ID Number');
+                           return;
+                       }
+                       if (product == '') {
+                           toastr.error("Error Occured!!!", 'Please choose the product to be paid');
+                           return;
+                       }
+                       if (worker_amount == '') {
+                           toastr.error("Error Occured!!!", 'You have not provided the amount to be paid');
+                           return;
+                       }
+
+                       $.ajax({
+                           type: 'POST',
+                           url: '{{ path_for('merchant.pay-single-worker') }}',
+                           data: {
+                               first_name: first_name,
+                               last_name: last_name,
+                               middle_name: middle_name,
+                               id_number:id_number,
+                               phone_number:phone_number,
+                               product:product,
+                               worker_amount:worker_amount,
+                               transaction_cost:transaction_cost,
+                               total_payouts:total_payouts,
+                               comments:comments
+
+                           }
+                       })
+                           .success(function (data) {
+                               toastr.success("Success", 'Payment has been initiated successfully and is awaiting approval');
+
+                               window.setTimeout(function(){
+                                   window.location.href='/merchant/';
+                               }, 3000);
+                           })
+                           .fail(function (jqXHR, textStatus, errorThrown) {
+                               alert(JSON.stringify(errorThrown));
+                           });
+                   });
+               }
+               else if(method==2)
+               {
+                   $('#single').hide();
+                   $('#excel').hide();
+                   $('#workgroup').show();
+
+                   $('#btn_save').click(function () {
+alert('groupppppsa');
+                       var group = $('#group').val();
+                       var product=$('#product').val();
+                       var total_workers=$('#total_workers').val();
+                       var worker_amount=$('#worker_amount').val();
+                       var transaction_cost=$('#transaction_cost').val();
+                       var total_payouts=$('#total_payouts').val();
+                       var comments=$('#comments').val();
+
+
+
+                       if (group == '') {
+                           toastr.error("Error Occured!!!", 'You Must Select A Worker Group');
+                           return;
+                       }
+
+                       if (product == '') {
+                           toastr.error("Error Occured!!!", 'Please choose the product to be paid');
+                           return;
+                       }
+                       if (worker_amount == '') {
+                           toastr.error("Error Occured!!!", 'You have not provided the amount to be paid');
+                           return;
+                       }
+
+                       $.ajax({
+                           type: 'POST',
+                           url: '{{ path_for('merchant.pay-workgroup') }}',
+                           data: {
+                               group: group,
+                               total_workers:total_workers,
+                               product:product,
+                               worker_amount:worker_amount,
+                               transaction_cost:transaction_cost,
+                               total_payouts:total_payouts,
+                               comments:comments
+
+                           }
+                       })
+                           .success(function (data) {
+                               toastr.success("Success", 'Payment has been initiated successfully and is awaiting approval');
+
+                               window.setTimeout(function(){
+                                   window.location.href='/merchant/';
+                               }, 3000);
+                           })
+                           .fail(function (jqXHR, textStatus, errorThrown) {
+                               alert(JSON.stringify(errorThrown));
+                           });
+                   });
+
+               }
+               else if(method==3)
+               {
+                   $('#single').hide();
+                   $('#workgroup').hide();
+                   $('#excel').show();
+
+                   $('#btn_save').click(function () {
+
+                       alert('process Excel');
+                       exit();
+                       var worker_group = $('#worker_group').val();
+                       var first_name = $('#first_name').val();
+                       var last_name = $('#last_name').val();
+                       var middle_name = $('#middle_name').val();
+                       var id_number=$('#id_number').val();
+                       var staff_id=$('#staff_id').val();
+
+
+                       if (worker_group == '') {
+                           toastr.error("Error Occured!!!", 'You must select a worker group');
+                           return;
+                       }
+
+                       if (first_name == '') {
+                           toastr.error("Error Occured!!!", 'Please Enter Your First Name');
+                           return;
+                       }
+
+                       if (middle_name == '') {
+                           toastr.error("Error Occured!!!", 'Please Enter Your Middle Name');
+                           return;
+                       }
+                       if (last_name == '') {
+                           toastr.error("Error Occured!!!", 'Please Enter Your Last Name');
+                           return;
+                       }
+                       if (id_number == '') {
+                           toastr.error("Error Occured!!!", 'You Must Enter Your ID Number');
+                           return;
+                       }
+                       if (staff_id == '') {
+                           toastr.error("Error Occured!!!", 'Set A Staff ID');
+                           return;
+                       }
+
+                       $.ajax({
+                           type: 'POST',
+                           url: '{{ path_for('merchant.save-worker') }}',
+                           data: {
+                               worker_group: worker_group,
+                               first_name: first_name,
+                               last_name: last_name,
+                               middle_name: middle_name,
+                               id_number:id_number,
+                               staff_id:staff_id
+                           }
+                       })
+                           .success(function (data) {
+                               window.setTimeout(function(){
+                                   window.location.href='/worker/manage-workers';
+                               }, 3000);
+                           })
+                           .fail(function (jqXHR, textStatus, errorThrown) {
+                               alert(JSON.stringify(errorThrown));
+                           });
+                   });
+               }
+            });
+
+            $(document).on('change', '#product', function () {
+
+                //Get Product Payout
+                var product = $("select[name='product']").val();
+                $('#worker_amount').val('5000');
+                $.ajax({
+
+                    cache: false,
+                    type: 'post',
+                    url   : '{{ path_for('merchant.product-payout') }}',
+                    data  : {'product':product},
+
+                    success: function (data)
+                    {
+
+
+                    },
+                })
+
+            });
+
+            $(document).on('change', '#group', function () {
+                //Get No Of Workers
+                $('#total_workers').val('5');
+
+                $amount=$('#worker_amount').val();
+                $workers=$('#total_workers').val();
+
+                $total=$amount*$workers;
+
+                $('#total_payouts').val($total);
+
+            });
+
+        });
+    </script>
+{% endblock %}

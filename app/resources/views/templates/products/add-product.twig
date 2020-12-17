@@ -1,0 +1,100 @@
+{% extends 'main.twig' %}
+ {% block contenthead %}
+
+     <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+         <div class="kt-subheader__main">
+             <h3 class="kt-subheader__title">
+                 Products </h3>
+             <span class="kt-subheader__separator kt-hidden"></span>
+             <div class="kt-subheader__breadcrumbs">
+                 <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                 <span class="kt-subheader__breadcrumbs-separator"></span>
+                 <a href="" class="kt-subheader__breadcrumbs-link">
+                     Add Product </a>
+
+               </div>
+         </div>
+
+     </div>
+ {% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <!--begin::Portlet-->
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            Add Your Jilipe Product
+                        </h3>
+                    </div>
+                </div>
+                    <form class="kt-form">
+                        <div class="kt-portlet__body">
+                            <div class="kt-section kt-section--first">
+
+                        <div class="form-group">
+                            <label>Product Name:</label>
+                           <input type="text" id="product_name" name="product_name" class="form-control"/>
+                            <span class="form-text text-muted">Please enter your full name</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Product Description:</label>
+
+                                <textarea  id="product_description" name="product_description" class="form-control"></textarea>
+
+                        </div>
+
+                       </div>
+                     </div>
+                        <div class="kt-portlet__foot">
+                            <div class="kt-form__actions">
+
+                                <a href="{{ path_for('merchant.manage-products') }}" type="reset" id="btn_cancel" class="btn btn-secondary">Cancel</a>
+                                <button type="button" id="btn_save" class="btn btn-primary">Add Product</button>
+
+                        </div>
+                        </div>
+                    </form>
+
+        </div>
+
+        <!--end::Portlet-->
+        </div>
+
+    </div>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            //Post Product
+
+            $('#btn_save').click(function () {
+
+                var product_name = $('#product_name').val();
+                var product_description = $('#product_description').val();
+
+
+                if (product_name == '') {
+                    toastr.error("Error Occured!!!", 'Product Name Cannot Be Blank');
+                    return;
+                }
+
+                if (product_description == '') {
+                    toastr.error("Error Occured!!!", 'Provide A Product Description');
+                    return;
+                }
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ path_for('merchant.save-product') }}',
+                    data: {
+                        product_name: product_name,
+                        product_description: product_description
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>jQuery HoldOn.js Plugin Demos</title>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link href="src/css/HoldOn.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div class="container">
+<h1 style="margin-top:30px">jQuery HoldOn.js Plugin Demos</h1>
+                                                                            
+                                                                                    <input type="submit" class=" btn btn-danger" value="Dot Theme" onclick="testHoldon('sk-dot');">
+                                                                                 
+                                                                                
+                                                                                    <input type="submit" class=" btn btn-danger" value="Rect Theme" onclick="testHoldon('sk-rect');">
+                                                                                 
+										
+                                                                                    <input type="submit" class=" btn btn-danger" value="Cube Theme" onclick="testHoldon('sk-cube');">
+                                                                                 
+										
+                                                                                    <input type="submit" class=" btn btn-danger" value="Bounce Theme" onclick="testHoldon('sk-bounce');">
+                                                                                 
+										
+                                                                                    <input type="submit" class=" btn btn-danger" value="Circle Theme" onclick="testHoldon('sk-circle');">
+                                                                                 
+                                                                                
+                                                                                    <input type="submit" class=" btn btn-danger" value="Cube Grid Theme" onclick="testHoldon('sk-cube-grid');">
+                                                                                 
+                                                                                
+                                                                                    <input type="submit" class=" btn btn-danger" value="Folding Cube Theme" onclick="testHoldon('sk-folding-cube');">
+                                                                                 
+                                                                                
+                                                                                    <input type="submit" class=" btn btn-danger" value="Fading Circle Theme" onclick="testHoldon('sk-fading-circle');">
+                                                                                 
+</div>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="src/js/HoldOn.js"></script>
+<script>
+                            
+                            function testHoldon(themeName){
+                                HoldOn.open({
+                                    theme:themeName,
+                                    message:"<h4>"+themeName+" Demo. Closing in 2 seconds</h4>"
+                                });
+                                
+                                setTimeout(function(){
+                                    HoldOn.close();
+                                },2000);
+                            }
+                        </script>
+</body>
+</html>

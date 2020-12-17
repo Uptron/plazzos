@@ -1,0 +1,215 @@
+{% extends 'main.twig' %}
+ {% block contenthead %}
+
+     <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+         <div class="kt-subheader__main">
+             <h3 class="kt-subheader__title">
+                 Workers </h3>
+             <span class="kt-subheader__separator kt-hidden"></span>
+             <div class="kt-subheader__breadcrumbs">
+                 <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                 <span class="kt-subheader__breadcrumbs-separator"></span>
+                 <a href="" class="kt-subheader__breadcrumbs-link">
+                     Manage Workers </a>
+
+             </div>
+         </div>
+
+     </div>
+ {% endblock %}
+{% block body %}
+    <!--<div class="alert alert-light alert-elevate" role="alert">
+        <div class="alert-icon"><i class="flaticon-warning kt-font-brand"></i></div>
+        <div class="alert-text">
+            Responsive is an extension for DataTables that resolves that problem by optimising the table's layout for different screen sizes through the dynamic insertion and removal of columns from the table.
+            See official documentation <a class="kt-link kt-font-bold" href="https://datatables.net/extensions/responsive/" target="_blank">here</a>.
+        </div>
+    </div>-->
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--lg">
+            <div class="kt-portlet__head-label">
+										<span class="kt-portlet__head-icon">
+											<i class="kt-font-brand flaticon2-line-chart"></i>
+										</span>
+                <h3 class="kt-portlet__head-title">
+                    Manage Workers
+                </h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-wrapper">
+                    <div class="kt-portlet__head-actions">
+                        <div class="dropdown dropdown-inline">
+                            <button type="button" class="btn btn-default btn-icon-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="la la-download"></i> Export
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <ul class="kt-nav">
+                                    <li class="kt-nav__section kt-nav__section--first">
+                                        <span class="kt-nav__section-text">Choose an option</span>
+                                    </li>
+                                    <li class="kt-nav__item">
+                                        <a href="#" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon la la-print"></i>
+                                            <span class="kt-nav__link-text">Print</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-nav__item">
+                                        <a href="#" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon la la-copy"></i>
+                                            <span class="kt-nav__link-text">Copy</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-nav__item">
+                                        <a href="#" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon la la-file-excel-o"></i>
+                                            <span class="kt-nav__link-text">Excel</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-nav__item">
+                                        <a href="#" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon la la-file-text-o"></i>
+                                            <span class="kt-nav__link-text">CSV</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-nav__item">
+                                        <a href="#" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon la la-file-pdf-o"></i>
+                                            <span class="kt-nav__link-text">PDF</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        &nbsp;
+                        <a href="{{ path_for('merchant.add-worker') }}" class="btn btn-brand btn-elevate btn-icon-sm">
+                            <i class="la la-plus"></i>
+                            New Worker
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__body">
+
+                    <table id='datatable' class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Worker Group</th>
+                            <th>First Name</th>
+                            <th>Middle Name</th>
+                            <th>Last Name</th>
+                            <th>ID Number</th>
+                            <th>Staff ID</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for worker in workers %}
+
+                            <tr class="open-{{ worker.id }}">
+                                <td>{{ worker.group }}</td>
+                                <td>{{ worker.firstName }}</td>
+                                <td>{{ worker.middleName }}</td>
+                                <td>{{ worker.lastName }}</td>
+                                <td>{{ worker.idNumber }}</td>
+                                <td>{{ worker.staffID }}</td>
+                                <td>{{ worker.status }}</td>
+                                <td>
+                                    <a href="javascript:edit_worker('{{ worker.group }}','{{ worker.firstName }}', '{{ worker.middleName }}', '{{ worker.lastName }}', '{{ worker.idNumber }}', '{{ worker.status }}','{{ worker.id }}','{{ worker.staffID}}')">
+                                        <i class="fa fa-edit"></i></a>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+
+                            function edit_worker(group,firstName,middleName,lastName,idNumber,status,id,staffID) {
+
+
+                                $('#ModalLabel').html('Edit Worker');
+                                $('#worker_group').val(group);
+                                $('#first_name').val(firstName);
+                                $('#middle_name').val(middleName);
+                                $('#last_name').val(lastName);
+                                $('#id_number').val(idNumber);
+                                $('#staff_id').val(staffID);
+                                $('#status').val(status);
+                                $('#staff_id').val(status);
+                                $('#worker_id').val(id);
+
+                                $('.edit_worker_modal').modal('show');
+
+                                HoldOn.close();
+
+
+                            }
+
+                            //edit Group
+                            $('#submit').click(function () {
+                                var first_name = $('#first_name').val();
+                                var worker_group = $('#worker_group').val();
+                                var middle_name = $('#middle_name').val();
+                                var last_name = $('#last_name').val();
+                                var staff_id = $('#staff_id').val();
+                                var id_number = $('#id_number').val();
+                                var worker_id = $('#worker_id').val();
+                                var status = $('#status').val();
+
+                                if (worker_group == '') {
+                                    toastr.error("Error Occured!!!", 'You have not selected a worker group');
+                                    return;
+                                }
+                                if (first_name == '') {
+                                    toastr.error("Error Occured!!!", 'Provide A First Name');
+                                    return;
+                                }
+                                if (middle_name == '') {
+                                    toastr.error("Error Occured!!!", 'Provide A Middle Name');
+                                    return;
+                                }
+                                if (last_name == '') {
+                                    toastr.error("Error Occured!!!", 'Provide A Last Name');
+                                    return;
+                                }
+                                if (id_number== '') {
+                                    toastr.error("Error Occured!!!", 'ID Number Required');
+                                    return;
+                                }
+                                if (staff_id== '') {
+                                    toastr.error("Error Occured!!!", 'Staff ID IS Required');
+                                    return;
+                                }
+                                if (status == '') {
+                                    toastr.error("Error Occured!!!", 'Set The Group Status');
+                                    return;
+                                }
+
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '{{ path_for('merchant.save-worker') }}',
+                                    data: {
+                                        group_name: group_name,
+                                        group_description: group_description,
+                                        status: status,
+                                    }
+                                })
+                                    .success(function (data) {
+                                        window.setTimeout(function(){
+                                            window.location.href='/merchant/manage-workers';
+                                        }, 3000);
+                                    })
+                                    .fail(function (jqXHR, textStatus, errorThrown) {
+                                        alert(JSON.stringify(errorThrown));
+                                    });
+                            });
+                        });
+                    </script>
+
+                    {% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'main.twig' %}
+{% block body %}
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Create Merchant Account</h3>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_content">
+                    <br />
+                    <form action="{{ path_for('admin.save-merchant') }}" method="post" id="frm_create_merchant" data-parsley-validate class="form-horizontal form-label-left">
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Merchant Name:</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="merchant_name" name="merchant_name" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Merchant PhoneNumber:</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="merchant_email" name="merchant_email" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Email Address:</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="merchant_phone" name="merchant_phone" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Physical Address:</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <textarea  id="merchant_address" name="merchant_address" class="form-control col-md-7 col-xs-12"></textarea>
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Username:</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="merchant_username" name="merchant_username" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Password:</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="password" id="password" name="password" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Confirm Password:</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="password" id="confirm_password" name="confirm_password" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <a href="{{ path_for('admin.manage-merchants') }}" type="button" id="btn_cancel" class="btn btn-primary">Cancel</a>
+                                <button type="button" id="btn_save" class="btn btn-success">Add Merchant</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
