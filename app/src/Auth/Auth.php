@@ -2,6 +2,8 @@
 
 
 namespace App\Auth;
+use App\Entity\User;
+use App\Entity\Merchant;
 use Doctrine\ORM\EntityManager;
 
 class Auth
@@ -22,14 +24,14 @@ class Auth
 
         return $user;
     }
-    public function valuer()
+    public function merchant()
     {
-        $valuer= $this->entityManager->getRepository("App\Entity\Valuer")->findOneBy([
+        $merchant= $this->entityManager->getRepository("App\Entity\Merchant")->findOneBy([
             'user' =>$this->user()->getId()
         ]);
-        if($valuer)
+        if($merchant)
         {
-            return $valuer;
+            return $merchant;
         }
         else{
             return false;
@@ -39,7 +41,7 @@ class Auth
 
     public function check()
     {
-       return isset($_SESSION['user']);
+        return isset($_SESSION['user']);
     }
 
     public function attempt($email,$password)
@@ -50,19 +52,14 @@ class Auth
 
         if(!$user)
         {
-          return false;
+            return false;
         }
 
         if(password_verify($password,$user->getPassword()))
         {
             $_SESSION['user']=$user->getId();
             $_SESSION['username']=$user->getUserName();
-            //Get Valuer ID
-            $valuer= $this->entityManager->getRepository("App\Entity\Valuer")->findOneBy([
-                'user' =>$user->getId()
-            ]);
-            $_SESSION['valuer_id']=$valuer->getId();
-            $_SESSION['valuer_name']=$valuer->getValuerName;
+            $_SESSION['usergroup']=$user->getGroup();
             return true;
         }
 

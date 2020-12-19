@@ -18,7 +18,7 @@ class Valuer
     private $id;
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\OneToOne(targetEntity="App\Entity\User")
      */
     private $user;
     /**

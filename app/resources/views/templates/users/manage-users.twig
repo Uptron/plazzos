@@ -1,13 +1,13 @@
 {% extends 'main.twig' %}
 {% block body %}
 
-    {% include 'valuers/edit_valuer.twig' %}
+
     <div class="row">
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Valuer Accounts</h2>
+                    <h2>User Accounts</h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -15,26 +15,30 @@
                     <table id='datatable' class="table table-striped table-bordered">
                         <thead>
                         <tr>
-                            <th>Valuer Name</th>
-                            <th>Phone Number</th>
+                            <th>First Name</th>
+                            <th>Middle Name</th>
+                            <th>Last Name</th>
                             <th>Email Address</th>
-                            <th>Physical Address</th>
+                            <th>User Name</th>
+                            <th>Role</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
 
-                        {% for valuer in valuers %}
+                        {% for user in users %}
 
-                            <tr class="open-{{ valuer.id }}">
-                                <td>{{ valuer.valuerName }}</td>
-                                <td>{{ valuer.phoneNumber }}</td>
-                                <td>{{ valuer.email }}</td>
-                                <td>{{ valuer.address }}</td>
-                                <td>{{ valuer.accountStatus }}</td>
+                            <tr class="open-{{ user.id }}">
+                                <td>{{ user.firstName }}</td>
+                                <td>{{ user.middleName }}</td>
+                                <td>{{ user.lastName }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.group }}</td>
+                                <td>{{ user.status }}</td>
                                 <td>
-                                    <a href="javascript:edit_valuer_account('{{ valuer.valuerName }}', '{{ valuer.phoneNumber }}', '{{ valuer.email }}', '{{ valuer.address }}', '{{ valuer.accountStatus }}','{{ valuer.id }}')">
+                                    <a href="javascript:edit_merchant_account('{{ user.firstName }}', '{{ user.middleName }}', '{{user.lastName }}', '{{  user.email }}', '{{  user.group }}','{{ merchant.id }}')">
                                         <i class="fa fa-edit"></i></a>
                                 </td>
                             </tr>

@@ -8,10 +8,11 @@
 
 namespace App\Action;
 
-use App\Entity\Merchant;
+use App\Entity\Valuer;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use App\Entity\User;
+use App\Entity\Merchant;
 use Respect\Validation\Validator as v;
 
 use Doctrine\ORM\EntityManager;
@@ -44,8 +45,22 @@ class AuthenticationAction extends BaseAction
 
           return $response->withRedirect('/auth/login');
       }
+      //Admin
+        if($_SESSION['usergroup']==1)
+        {
+            return $response->withRedirect('/admin/');
+        }
+    //staff
+        else if($_SESSION['usergroup']==2)
+        {
+            return $response->withRedirect('/staff/');
+        }
+    //Valuer
+        else if($_SESSION['usergroup']==3)
+        {
+            return $response->withRedirect('/merchant/');
+        }
 
-        return $response->withRedirect('/merchant/');
     }
     public function getSignup(Request $request,Response $response){
 
@@ -73,6 +88,7 @@ class AuthenticationAction extends BaseAction
 
             return $response->withRedirect('/auth/signup');
         }
+
         $merchant_name=$request->getParam('merchant_name');
         $phone_number=$request->getParam('phone_number');
         $address=$request->getParam('physical_address');

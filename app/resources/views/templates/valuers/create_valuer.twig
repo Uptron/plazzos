@@ -2,7 +2,7 @@
 {% block body %}
     <div class="page-title">
         <div class="title_left">
-            <h3>Create Merchant Account</h3>
+            <h3>Create Valuer Account</h3>
         </div>
     </div>
 
@@ -13,37 +13,37 @@
             <div class="x_panel">
                 <div class="x_content">
                     <br />
-                    <form action="{{ path_for('admin.save-merchant') }}" method="post" id="frm_create_merchant" data-parsley-validate class="form-horizontal form-label-left">
+                    <form action="{{ path_for('admin.save-valuer') }}" method="post" id="frm_create_valuer" data-parsley-validate class="form-horizontal form-label-left">
 
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Merchant Name:</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Valuer Name:</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="merchant_name" name="merchant_name" class="form-control col-md-7 col-xs-12"/>
+                                <input type="text" id="valuer_name" name="valuer_name" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Merchant PhoneNumber:</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Valuer Email:</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="merchant_email" name="merchant_email" class="form-control col-md-7 col-xs-12"/>
+                                <input type="text" id="valuer_email" name="valuer_email" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Email Address:</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Phone Number:</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="merchant_phone" name="merchant_phone" class="form-control col-md-7 col-xs-12"/>
+                                <input type="text" id="valuer_phone" name="valuer_phone" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Physical Address:</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea  id="merchant_address" name="merchant_address" class="form-control col-md-7 col-xs-12"></textarea>
+                                <textarea  id="valuer_address" name="valuer_address" class="form-control col-md-7 col-xs-12"></textarea>
                             </div>
                         </div>
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Username:</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="merchant_username" name="merchant_username" class="form-control col-md-7 col-xs-12"/>
+                                <input type="text" id="valuer_username" name="valuer_username" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -63,8 +63,9 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <a href="{{ path_for('admin.manage-merchants') }}" type="button" id="btn_cancel" class="btn btn-primary">Cancel</a>
-                                <button type="button" id="btn_save" class="btn btn-success">Add Merchant</button>
+                                <a href="{{ path_for('admin.manage-valuers') }}" type="button" id="btn_cancel" class="btn btn-primary">Cancel</a>
+                               <!-- <button type="button" id="btn_save" class="btn btn-success">Add Valuer</button>-->
+                                <input type="submit" value="Add Valuer" />
                             </div>
                         </div>
 
@@ -73,5 +74,74 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
 
+        $(document).ready(function () {
+
+            //Post Valuer
+
+            $('#btn_save').click(function () {
+                var valuer_name = $('#valuer_name').val();
+                var valuer_email = $('#valuer_email').val();
+                var valuer_address = $('#valuer_address').val();
+                var valuer_phone = $('#valuer_phone').val();
+                var valuer_username=$('#valuer_username').val();
+                var password=$('#password').val();
+                var confirm_password=$('#confirm_password').val();
+
+                if (valuer_name == '') {
+                    toastr.error("Error Occured!!!", 'You must provide a Valuer Name');
+                    return;
+                }
+
+                if (valuer_email == '') {
+                    toastr.error("Error Occured!!!", 'Please Enter the email address of the valuer');
+                    return;
+                }
+
+                if (valuer_address == '') {
+                    toastr.error("Error Occured!!!", 'Enter the physical address of the valuer');
+                    return;
+                }
+                if (valuer_phone == '') {
+                    toastr.error("Error Occured!!!", 'Enter the phone number of the valuer');
+                    return;
+                }
+                if (valuer_username== '') {
+                    toastr.error("Error Occured!!!", 'Provide a unique username for the Valuer');
+                    return;
+                }
+                if (password == '') {
+                    toastr.error("Error Occured!!!", 'Enter a password');
+                    return;
+                }
+                if (confirm_password == '') {
+                    toastr.error("Error Occured!!!", 'Enter a password confirmation');
+                    return;
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ path_for('admin.save-valuer') }}',
+                    data: {
+                        valuer_name:valuer_name,
+                        valuer_email: valuer_email,
+                        valuer_address:valuer_address,
+                        valuer_phone:valuer_phone,
+                        valuer_username:valuer_username,
+                        password: password,
+                        confirm_password: confirm_password
+                    }
+                })
+                    .success(function (data) {
+                        window.setTimeout(function(){
+                            window.location.href='/admin/manage-valuers';
+                        }, 3000);
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        alert(JSON.stringify(errorThrown));
+                    });
+            });
+        });
+    </script>
 {% endblock %}

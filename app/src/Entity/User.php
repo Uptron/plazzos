@@ -16,6 +16,11 @@ class User
      * @ORM\Column(type="string")
      */
     private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="UsersGroup")
+     */
+    private $group;
     /**
      * @ORM\Column(type="string",nullable=true)
      */
@@ -64,7 +69,30 @@ class User
     {
         return $this->id;
     }
-    
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    /**
+     * @param mixed $group
+     */
+    public function setGroup($group): void
+    {
+        $this->group = $group;
+    }
 
     /**
      * @return mixed
@@ -77,7 +105,7 @@ class User
     /**
      * @param mixed $email
      */
-    public function setEmail($email)
+    public function setEmail($email): void
     {
         $this->email = $email;
     }
@@ -93,7 +121,7 @@ class User
     /**
      * @param mixed $firstName
      */
-    public function setFirstName($firstName)
+    public function setFirstName($firstName): void
     {
         $this->firstName = $firstName;
     }
@@ -109,7 +137,7 @@ class User
     /**
      * @param mixed $middlename
      */
-    public function setMiddlename($middlename)
+    public function setMiddlename($middlename): void
     {
         $this->middlename = $middlename;
     }
@@ -125,7 +153,7 @@ class User
     /**
      * @param mixed $lastName
      */
-    public function setLastName($lastName)
+    public function setLastName($lastName): void
     {
         $this->lastName = $lastName;
     }
@@ -141,7 +169,7 @@ class User
     /**
      * @param mixed $userName
      */
-    public function setUserName($userName)
+    public function setUserName($userName): void
     {
         $this->userName = $userName;
     }
@@ -157,7 +185,7 @@ class User
     /**
      * @param mixed $password
      */
-    public function setPassword($password)
+    public function setPassword($password): void
     {
         $this->password = $password;
     }
@@ -173,7 +201,7 @@ class User
     /**
      * @param mixed $accountCreatedAt
      */
-    public function setAccountCreatedAt($accountCreatedAt)
+    public function setAccountCreatedAt($accountCreatedAt): void
     {
         $this->accountCreatedAt = $accountCreatedAt;
     }
@@ -189,7 +217,7 @@ class User
     /**
      * @param mixed $accountUpdateAt
      */
-    public function setAccountUpdateAt($accountUpdateAt)
+    public function setAccountUpdateAt($accountUpdateAt): void
     {
         $this->accountUpdateAt = $accountUpdateAt;
     }
@@ -205,7 +233,7 @@ class User
     /**
      * @param string $status
      */
-    public function setStatus(string $status)
+    public function setStatus(string $status): void
     {
         $this->status = $status;
     }

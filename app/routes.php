@@ -1,7 +1,7 @@
 <?php
 // Routes
 //Login Page
-//use App\Middleware\ApiAuthenticationMiddleware;
+use App\Middleware\ApiAuthenticationMiddleware;
 use App\Middleware\AuthenticationMiddleware;
 
 $app->get('/', App\Action\AuthenticationAction::class);
@@ -33,10 +33,27 @@ $app->group('',function () use ($app){
 //Administration Routes
 $app->group('/admin', function () use ($app) {
     $app->get('/', App\Action\AdminAction::class)->setName('admin.dashboard');
-    $app->get('/add-merchant', 'App\Action\AdminAction:newMerchant')->setName('admin.add-merchant');
-    $app->get('/manage-merchants', 'App\Action\AdminAction:fetchMerchants')->setName('admin.manage-merchants');
-    $app->post('/save-merchant', 'App\Action\AdminAction:saveMerchant')->setName('admin.save-merchant');
-    $app->post('/update-merchant', 'App\Action\AdminAction:saveMerchant')->setName('admin.update-merchant');
+   //Valuers
+    $app->get('/add-valuer', 'App\Action\AdminAction:newValuer')->setName('admin.add-valuer');
+    $app->get('/manage-valuers', 'App\Action\AdminAction:fetchValuers')->setName('admin.manage-valuers');
+    $app->post('/save-valuer', 'App\Action\AdminAction:saveValuer')->setName('admin.save-valuer');
+    $app->post('/update-valuer', 'App\Action\AdminAction:saveValuer')->setName('admin.update-valuer');
+//staff
+    $app->get('/add-staff', 'App\Action\AdminAction:newstaff')->setName('admin.add-staff');
+    $app->get('/manage-staff', 'App\Action\AdminAction:fetchstaff')->setName('admin.manage-staff');
+    $app->post('/save-staff', 'App\Action\AdminAction:savestaff')->setName('admin.save-staff');
+    $app->post('/update-staff', 'App\Action\AdminAction:savestaff')->setName('admin.update-staff');
+
+    //Users
+    $app->get('/add-user', 'App\Action\AdminAction:newuser')->setName('admin.add-user');
+    $app->get('/manage-users', 'App\Action\AdminAction:fetchusers')->setName('admin.manage-users');
+    $app->post('/save-user', 'App\Action\AdminAction:saveuser')->setName('admin.save-user');
+    $app->post('/update-user', 'App\Action\AdminAction:saveuser')->setName('admin.update-user');
+    $app->get('/add-group', 'App\Action\AdminAction:newgroup')->setName('admin.add-group');
+    $app->get('/manage-groups', 'App\Action\AdminAction:fetchgroups')->setName('admin.manage-groups');
+    $app->post('/save-group', 'App\Action\AdminAction:savegroup')->setName('admin.save-group');
+
+
 
 });
 

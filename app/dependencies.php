@@ -10,14 +10,19 @@ $container = $app->getContainer();
 // -----------------------------------------------------------------------------
 //Authentication
 $container['auth'] = function ($container){
-    return new App\Auth\Auth($container->get('em'));
+    return new App\Auth\Auth($container->get('em'),$container->get('settings')['admin']);
 };
 
 // Flash messages
 $container['flash'] = function ($container) {
     return new Slim\Flash\Messages;
 };
-
+$container['valuer_service']= function ($container){
+    return new \App\Service\valuerService($container->get('em'));
+};
+$container['staff_service']= function ($container){
+    return new \App\Service\staffService($container->get('em'));
+};
 $container['home_service']= function ($container){
   return new \App\Service\HomeService($container->get('em'));
 };
@@ -99,6 +104,13 @@ $container['em']=function ($container){
 // -----------------------------------------------------------------------------
 // Action factories
 // -----------------------------------------------------------------------------
+$container[App\Action\ValuerAction::class] = function ($container) {
+    return new App\Action\ValuerAction($container->get('view'), $container->get('logger'),$container->get('valuer_service'),  $container->get('em'),$container->get('flash'));
+};
+$container[App\Action\staffAction::class] = function ($container) {
+    return new App\Action\staffAction($container->get('view'), $container->get('logger'),$container->get('staff_service'),  $container->get('em'),$container->get('flash'));
+};
+
 
 $container[App\Action\HomeAction::class] = function ($container) {
     return new App\Action\HomeAction($container->get('view'), $container->get('logger'),$container->get('home_service'),  $container->get('em'),$container->get('flash'));

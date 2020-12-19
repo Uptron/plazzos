@@ -1,4 +1,4 @@
-<div class="modal fade edit_merchant_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+<div class="modal fade edit_valuer_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -6,7 +6,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title" id="modal_heading">Edit Merchant</h4>
+                <h4 class="modal-title" id="modal_heading">Edit Valuer</h4>
             </div>
 
             <div class="modal-body">
@@ -25,38 +25,38 @@
                              aria-labelledby="schedule_main_tab">
                             <div class="panel-body">
 
-                                <form id="frm_edit_merchant" autocomplete="off" class="form-horizontal form-label-left">
+                                <form id="frm_edit_valuer" autocomplete="off" class="form-horizontal form-label-left">
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Merchant Name:</label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">valuer Name:</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="merchant_name" name="merchant_name" class="form-control col-md-7 col-xs-12"/>
-                                            <input type="hidden" id="merchant_id" name="merchant_id" class="form-control col-md-7 col-xs-12"/>
+                                            <input type="text" id="valuer_name" name="valuer_name" class="form-control col-md-7 col-xs-12"/>
+                                            <input type="hidden" id="valuer_id" name="valuer_id" class="form-control col-md-7 col-xs-12"/>
 
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Merchant PhoneNumber:</label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">valuer PhoneNumber:</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="merchant_email" name="merchant_email" class="form-control col-md-7 col-xs-12"/>
+                                            <input type="text" id="valuer_email" name="valuer_email" class="form-control col-md-7 col-xs-12"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Email Address:</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="merchant_phone" name="merchant_phone" class="form-control col-md-7 col-xs-12"/>
+                                            <input type="text" id="valuer_phone" name="valuer_phone" class="form-control col-md-7 col-xs-12"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Physical Address:</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <textarea  id="merchant_address" name="merchant_address" class="form-control col-md-7 col-xs-12"></textarea>
+                                            <textarea  id="valuer_address" name="valuer_address" class="form-control col-md-7 col-xs-12"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Status:</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select  id="merchant_status" name="merchant_status" class="form-control col-md-7 col-xs-12">
+                                            <select  id="valuer_status" name="valuer_status" class="form-control col-md-7 col-xs-12">
                                                 <option value=""></option>
                                                 <option value="Active">Active</option>
                                                 <option value="Inative">Inactive</option>
@@ -74,7 +74,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button id="btn_schedule_task" type="button" class="btn btn-primary edit_merchant">Edit Merchant
+                    <button id="btn_schedule_task" type="button" class="btn btn-primary edit_valuer">Edit valuer
                     </button>
                 </div>
 
@@ -87,8 +87,8 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-          //edit Merchant
-            $('.edit_merchant').click(function () {
+          //edit valuer
+            $('.edit_valuer').click(function () {
                 var contractor_ID = $('#contractr').val();
                 var schedule_Date = $('#THEDATE').val();
                 var contacts = $('#PHONE_NUMBER').val();
@@ -118,7 +118,7 @@
 
                 $.ajax({
                     type: 'GET',
-                    url: '{{ path_for('admin.update-merchant') }}',
+                    url: '{{ path_for('admin.update-valuer') }}',
                     data: {
                         contractorId: contractor_ID,
                         scheduleDate: schedule_Date,

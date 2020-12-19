@@ -23,8 +23,8 @@ class Valuation
     private $valuerID;
 
     /**
-     * @var Agent
-     * @ORM\ManyToOne(targetEntity="App\Entity\Agent")
+     * @var staff
+     * @ORM\ManyToOne(targetEntity="App\Entity\staff")
      */
     private $requester;
 

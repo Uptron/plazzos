@@ -1,0 +1,93 @@
+{% extends 'main.twig' %}
+{% block body %}
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Create User Account</h3>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_content">
+                    <br />
+                    <form action="{{ path_for('admin.save-user') }}" method="post" id="frm_create_merchant" data-parsley-validate class="form-horizontal form-label-left">
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">First Name:</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="first_name" name="first_name" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Middle Name:</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="middle_name" name="middle_name" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Last Name:</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="last_name" name="last_name" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Email Address:</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="email" name="email" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <label>User Group:</label>
+
+                            <select id="group" name="group" class="form-control col-md-7 col-xs-12">
+                                <option value="">Choose User Group</option>
+                                {% for group in groups %}
+
+                                    <option value="{{ group.id }}"> {{ group.name }} </option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Username:</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="username" name="username" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Password:</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="password" id="password" name="password" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Confirm Password:</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="password" id="confirm_password" name="confirm_password" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <a href="{{ path_for('admin.manage-users') }}" type="button" id="btn_cancel" class="btn btn-primary">Cancel</a>
+                                <!--<button type="button" id="btn_save" class="btn btn-success">User</button>-->
+                                <input type="submit" class="btn btn-success" name="add_user" id="add_user" value="Save User"/>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
