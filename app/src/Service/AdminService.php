@@ -8,6 +8,7 @@ use App\AbstractEntityManagerResource;
 use App\Entity\UsersGroup;
 use App\Entity\User;
 use App\Entity\Valuer;
+use App\Entity\Staff;
 
 use Doctrine\ORM\EntityManager;
 
@@ -56,7 +57,35 @@ class AdminService
 
         return true;
     }
+//store staff
+    function storeStaff(Staff $staff)
+    {
 
+        $this->entityManager->persist($staff);
+        $this->entityManager->flush();
+
+        return true;
+    }
+    //fetch staff
+
+    function fetchStaff($id=null)
+    {
+        if ($id == null)
+        {
+            $staff = $this->entityManager->getRepository('App\Entity\Staff')->findAll();
+
+            return  $staff;
+        }
+        else{
+            $staff = $this->entityManager->getRepository('App\Entity\Staff')->findOneBy(
+                [
+                    'id' => $id
+                ]
+            );
+            return $staff;
+        }
+
+    }
     //Store Valuer
     function storeValuer(Valuer $valuer)
     {
@@ -66,6 +95,7 @@ class AdminService
 
         return true;
     }
+
     //Fetch Valuers
     function fetchvaluers($id=null)
     {
@@ -85,12 +115,7 @@ class AdminService
         }
 
     }
-//Fetch User Groups
-    public function fetchgroups()
-    {
-            $groups = $this->entityManager->getRepository('App\Entity\UsersGroup')->findAll();
-            return $groups;
-    }
+
 //fetch group by name
     function fetchgroup($name=null)
     {
@@ -107,6 +132,47 @@ class AdminService
                 ]
             );
             return $groups;
+        }
+
+    }
+    //fetch group by id
+    function fetchgroups($id=null)
+    {
+        if ($id == null)
+        {
+            $groups = $this->entityManager->getRepository('App\Entity\UsersGroup')->findAll();
+
+            return  $groups;
+        }
+        else{
+            $groups = $this->entityManager->getRepository('App\Entity\UsersGroup')->findOneBy(
+                [
+                    'id' => $id
+                ]
+            );
+            return $groups;
+        }
+
+    }
+
+
+    //Fetch Valuations
+    //fetch users
+    function fetchvaluations($id=null)
+    {
+        if ($id == null)
+        {
+            $valuations = $this->entityManager->getRepository('App\Entity\ValuationRequest')->findAll();
+
+            return  $valuations;
+        }
+        else{
+            $valuations = $this->entityManager->getRepository('App\Entity\ValuationRequest')->findOneBy(
+                [
+                    'id' => $id
+                ]
+            );
+            return $valuations;
         }
 
     }

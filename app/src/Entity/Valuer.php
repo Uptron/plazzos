@@ -184,6 +184,8 @@ class Valuer
     }
 
 
-
+    public function __toString() {
+        return $this->valuerName;
+    }
 
 }

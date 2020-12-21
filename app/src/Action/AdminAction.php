@@ -2,7 +2,6 @@
 
 namespace App\Action;
 
-use App\Entity\Merchant;
 use App\Entity\User;
 use App\Entity\UsersGroup;
 use App\Entity\Valuer;
@@ -13,7 +12,7 @@ use Slim\Views\Twig;
 use Psr\Log\LoggerInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
-
+use Doctrine\ORM\EntityManager;
 
 final class AdminAction
 {
@@ -34,6 +33,14 @@ final class AdminAction
         $this->view->render($response, 'dashboard.twig');
         return $response;
     }
+    /* VALUATIONS*/
+    public function valuationrequests(Request $request, Response $response) {
+        $valuations = $this->adminService->fetchvaluations();
+        $this->view->render($response, 'valuations/manage-valuations-admin.twig', [
+            'valuations' => $valuations
+        ]);
+    }
+
     /* START OF USERS*/
     public function newUser(Request $request, Response $response) {
         $groups = $this->adminService->fetchgroups();
@@ -121,15 +128,15 @@ final class AdminAction
         $password = $request->getParam('password');
         $confirm_password = $request->getParam('confirm_password');
         $status='Active';
-        //$group=$this->adminService->fetchgroup('Valuer');
+        $group=$this->adminService->fetchgroup('Valuer');
 
-      /*  $user=new User();
+        $user=new User();
         $user->setFirstName($valuer_name);
         $user->setEmail($valuer_email);
         $user->setUserName($valuer_username);
         $user->setPassword(password_hash($password,PASSWORD_DEFAULT));
         $user->setAccountCreatedAt(new \DateTime());
-        //$user->setGroup($group);*/
+        $user->setGroup($group);
 
 
         $valuer = new Valuer();
@@ -139,10 +146,14 @@ final class AdminAction
         $valuer->setAddress($valuer_address);
         $valuer->setDateCreated(new \DateTime());
         $valuer->setAccountStatus($status);
-       // $valuer->setUser($user);
+        $valuer->setUser($user);
 
+
+        $users = $this->adminService->storeUser($user);
         $valuers = $this->adminService->storeValuer($valuer);
-       // $users = $this->adminService->storeUser($user);
+
+
+
         return $response->withRedirect('/admin/manage-valuers');
     }
 
@@ -156,39 +167,70 @@ final class AdminAction
 
 
 
-    /* START OF staffs*/
+    /* START OF staff*/
 
     public function fetchstaff(Request $request, Response $response) {
         $staffs = $this->adminService->fetchstaff();
-        $this->view->render($response, 'staffs/manage_staff.twig', [
+        $this->view->render($response, 'staff/manage_staff.twig', [
             'staffs' => $staffs
         ]);
     }
 
     public function newstaff(Request $request, Response $response) {
-        $this->view->render($response, 'staffs/create_staff.twig');
+
+        $groups = $this->adminService->fetchgroups();
+        $this->view->render($response, 'staff/create_staff.twig',
+            [
+                'groups' => $groups
+            ]);
         return $response;
+
     }
 
     public function savestaff(Request $request, Response $response) {
-        $merchant_name = $request->getParam('merchant_name');
-        $merchant_email = $request->getParam('merchant_email');
-        $merchant_address = $request->getParam('merchant_address');
-        $merchant_phone = $request->getParam('merchant_phone');
-        $merchant_username = $request->getParam('merchant_username');
-        $password = $request->getParam('password');
-        $confirm_password = $request->getParam('confirm_password');
+        $first_name=$request->getParam('first_name');
+        $middle_name=$request->getParam('middle_name');
+        $last_name=$request->getParam('last_name');
+        $email=$request->getParam('email');
+        $group=$request->getParam('group');
+        $department=$request->getParam('department');
+        $username=$request->getParam('username');
+        $password=$request->getParam('password');
+        $confirmation=$request->getParam('confirm_password');
         $status='Active';
+        $groupie = $this->adminService->fetchgroups($group);
 
-        $merchant = new Merchant();
-        $merchant->setMerchantName($merchant_name);
-        $merchant->setPhoneNumber($merchant_phone);
-        $merchant->setEmail($merchant_email);
-        $merchant->setAddress($merchant_address);
-        $merchant->setDateCreated(new \DateTime());
-        $merchant->setAccountStatus($status);
 
-        $merchants = $this->adminService->storeMerchant($merchant);
+
+        $user=new User();
+        $user->setFirstName($first_name);
+        $user->setMiddlename($middle_name);
+        $user->setLastName($last_name);
+        $user->setEmail($email);
+        $user->setUserName($username);
+        $user->setGroup($groupie);
+        $user->setPassword(password_hash($password,PASSWORD_DEFAULT));
+        $user->setAccountCreatedAt(new \DateTime());
+
+
+        $staff=new Staff();
+        $staff->setFirstName($first_name);
+        $staff->setMiddlename($middle_name);
+        $staff->setLastName($last_name);
+        $staff->setEmail($email);
+        $staff->setDepartment($department);
+        $staff->setUser($user);
+        $staff->setDateAdded(new \DateTime());
+        $staff->setLastUpdated(new \DateTime());
+        $staff->setStatus($status);
+
+
+
+        $users = $this->adminService->storeUser($user);
+        $valuers = $this->adminService->storeStaff($staff);
+
+
+
         return $response->withRedirect('/admin/manage-staff');
     }
 

@@ -1,19 +1,20 @@
 {% extends 'main.twig' %}
+{% block sidebar %}
+    {% include 'partials/staff-siderbar.twig' %}
+{% endblock %}
  {% block contenthead %}
 
      <div class="kt-subheader   kt-grid__item" id="kt_subheader">
          <div class="kt-subheader__main">
              <h3 class="kt-subheader__title">
-                 Payments </h3>
+                 Valuations </h3>
              <span class="kt-subheader__separator kt-hidden"></span>
              <div class="kt-subheader__breadcrumbs">
                  <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                  <span class="kt-subheader__breadcrumbs-separator"></span>
                  <a href="" class="kt-subheader__breadcrumbs-link">
-                     Initiate Payment </a>
-                 <span class="kt-subheader__breadcrumbs-separator"></span>
-                 <a href="" class="kt-subheader__breadcrumbs-link">
-                     Pay Worker Group </a>
+                     Request Valuation </a>
+
              </div>
          </div>
 
@@ -27,66 +28,65 @@
                 <div class="kt-portlet__head">
                     <div class="kt-portlet__head-label">
                         <h3 class="kt-portlet__head-title">
-                            Pay Worker Group
+                            Request Valuation
                         </h3>
                     </div>
                 </div>
-                <form class="kt-form">
+                <form action="{{ path_for('staff.save-request') }}"  method="post" class="kt-form" enctype="multipart/form-data">
                     <div class=" kt-portlet__body">
                         <div class="kt-section">
                             <div class="form-group">
-                                <label>Product:</label>
+                                <label>Client Name:</label>
 
-                                <select  id="product" name="product" class="form-control">
-                                    <option value="">Choose Product</option>
-                                    {% for product in products %}
+                                <input type="text" id="client_name" name="client_name" class="form-control"/>
 
-                                        <option value="{{ product.id }}"> {{ product.productName }} </option>
+                            </div>
+                            <div class="form-group">
+                                <label>Client Phone Number:</label>
+
+                                <input type="text" id="client_phone" name="client_phone" class="form-control"/>
+
+                            </div>
+                            <div class="form-group">
+                                <label>Vehicle Registration No:</label>
+
+                                <input type="text" id="vehicle_reg" name="vehicle_reg" class="form-control"/>
+
+                            </div>
+                            <div class="form-group">
+                                <label>Vehicle Make:</label>
+
+                                <input type="text" id="vehicle_make" name="vehicle_make" class="form-control"/>
+
+                            </div>
+                            <div class="form-group">
+                                <label>Vehicle Model:</label>
+
+                                <input type="text" id="vehicle_model" name="vehicle_model" class="form-control"/>
+
+                            </div>
+                            <div class="form-group">
+                                <label>Valuer:</label>
+
+                                <select  id="valuer" name="valuer" class="form-control">
+                                    <option value="">Choose Valuer</option>
+                                    {% for valuer in valuers %}
+
+                                        <option value="{{ valuer.id }}"> {{ valuer.valuerName }} </option>
                                     {% endfor %}
                                 </select>
 
                             </div>
+
                             <div class="form-group">
-                                <label>Worker Group:</label>
+                                <label>Attach Logbook:</label>
 
-                                <select  id="group" name="group" class="form-control">
-                                    <option value="">Choose Worker Group</option>
-                                    {% for group in groups %}
-
-                                        <option value="{{ group.id }}"> {{ group.groupName }} </option>
-                                    {% endfor %}
-                                </select>
-
-                            </div>
-                            <div class="form-group">
-                                <label>Total No of Workers:</label>
-
-                                <input type="text" id="total_workers" name="total_workers" class="form-control"/>
-
-                            </div>
-                            <div class="form-group">
-                                <label>Amount To Pay(Per Worker):</label>
-
-                                <input type="text" id="worker_amount" name="worker_amount" class="form-control"/>
-
-                            </div>
-                            <div class="form-group">
-                                <label>Total Transaction Cost:</label>
-
-                                <input type="text" id="transaction_cost" name="transaction_cost" class="form-control"/>
+                                <input type="file" id="logbook" name="logbook" class="form-control"/>
 
                             </div>
 
                             <div class="form-group">
-                                <label>Total Payout:</label>
-
-                                <input type="text" id="total_payouts" name="total_payouts" class="form-control"/>
-
-                            </div>
-
-
-                            <div class="form-group">
-                                <label>Comments:</label>
+                                <label>Additional Comments:</label>
 
                                 <textarea id="comments" name="comments" class="form-control">
                                 </textarea>
@@ -101,8 +101,10 @@
                             <div class="row">
                                 <div class="col-lg-5"></div>
                                 <div class="col-lg-7">
-                                    <a href="{{ path_for('merchant.initiate-payment') }}" type="button" id="btn_cancel" class="btn btn-primary">Cancel</a>
-                                    <button type="button" id="btn_save" class="btn btn-success">Make Payment</button>
+                                    <a href="{{ path_for('staff.manage-requests') }}" type="button" id="btn_cancel" class="btn btn-primary">Cancel</a>
+                                    <!--<button type="button" id="btn_save" class="btn btn-success">Make Request</button>-->
+
+                                    <input type="submit"  class="btn btn-success" value="Make Request" />
                                 </div>
                             </div>
                         </div>
@@ -123,49 +125,66 @@
 
             $('#btn_save').click(function () {
 
-                var group = $('#group').val();
-                var product=$('#product').val();
-                var total_workers=$('#total_workers').val();
-                var worker_amount=$('#worker_amount').val();
-                var transaction_cost=$('#transaction_cost').val();
-                var total_payouts=$('#total_payouts').val();
+                var client_name = $('#client_name').val();
+                var client_phone=$('#client_phone').val();
+                var vehicle_reg=$('#vehicle_reg').val();
+                var vehicle_make=$('#vehicle_make').val();
+                var vehicle_model=$('#vehicle_model').val();
+                var valuer=$('#valuer').val();
+                var logbook=$('#logbook').val();
                 var comments=$('#comments').val();
 
 
 
-                if (group == '') {
-                    toastr.error("Error Occured!!!", 'You Must Select A Worker Group');
+                if (client_name == '') {
+                    toastr.error("Error Occured!!!", 'You Must Provide The Client Name');
                     return;
                 }
 
-                if (product == '') {
-                    toastr.error("Error Occured!!!", 'Please choose the product to be paid');
+                if (client_phone == '') {
+                    toastr.error("Error Occured!!!", 'You Must Provide The Client Name');
                     return;
                 }
-                if (worker_amount == '') {
-                    toastr.error("Error Occured!!!", 'You have not provided the amount to be paid');
+                if (vehicle_reg == '') {
+                    toastr.error("Error Occured!!!", 'You have not provided the vehicle registration number');
                     return;
                 }
-
+                if (vehicle_make == '') {
+                    toastr.error("Error Occured!!!", 'You must state the vehicle make');
+                    return;
+                }
+                if (vehicle_model == '') {
+                    toastr.error("Error Occured!!!", 'You must state the vehicle model');
+                    return;
+                }
+                if (valuer == '') {
+                    toastr.error("Error Occured!!!", 'You must specify a Valuer*');
+                    return;
+                }
+                if (logbook == '') {
+                    toastr.error("Error Occured!!!", 'Kindly attach the vehicle logbook');
+                    return;
+                }
                 $.ajax({
                     type: 'POST',
-                    url: '{{ path_for('merchant.pay-workgroup') }}',
+                    url: '{{ path_for('staff.save-request') }}',
                     data: {
-                        group: group,
-                        total_workers:total_workers,
-                        product:product,
-                        worker_amount:worker_amount,
-                        transaction_cost:transaction_cost,
-                        total_payouts:total_payouts,
+                        client_name: client_name,
+                        client_phone: client_phone,
+                        vehicle_reg:vehicle_reg,
+                        vehicle_model:vehicle_model,
+                        vehicle_make:vehicle_make,
+                        valuer:valuer,
+                        logbook:logbook,
                         comments:comments
 
                     }
                 })
                     .success(function (data) {
-                        toastr.success("Success", 'Payment has been initiated successfully and is awaiting approval');
+                        toastr.success("Success", 'Your valuation request has been sent to the valuer');
 
                         window.setTimeout(function(){
-                            window.location.href='/merchant/';
+                            window.location.href='/staff/manage-requests';
                         }, 3000);
                     })
                     .fail(function (jqXHR, textStatus, errorThrown) {
@@ -173,41 +192,6 @@
                     });
             });
 
-
-
-            $(document).on('change', '#product', function () {
-
-                //Get Product Payout
-                var product = $("select[name='product']").val();
-                $('#worker_amount').val('5000');
-                $.ajax({
-
-                    cache: false,
-                    type: 'post',
-                    url   : '{{ path_for('merchant.product-payout') }}',
-                    data  : {'product':product},
-
-                    success: function (data)
-                    {
-
-
-                    },
-                })
-
-            });
-
-            $(document).on('change', '#group', function () {
-                //Get No Of Workers
-                $('#total_workers').val('5');
-
-                $amount=$('#worker_amount').val();
-                $workers=$('#total_workers').val();
-
-                $total=$amount*$workers;
-
-                $('#total_payouts').val($total);
-
-            });
 
         });
     </script>

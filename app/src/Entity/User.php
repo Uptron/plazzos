@@ -16,9 +16,9 @@ class User
      * @ORM\Column(type="string")
      */
     private $id;
-
     /**
-     * @ORM\ManyToOne(targetEntity="UsersGroup")
+     * @var $group
+     * @ORM\OneToOne(targetEntity="App\Entity\UsersGroup")
      */
     private $group;
     /**
@@ -69,13 +69,150 @@ class User
     {
         return $this->id;
     }
+    
 
     /**
-     * @param mixed $id
+     * @return mixed
      */
-    public function setId($id): void
+    public function getEmail()
     {
-        $this->id = $id;
+        return $this->email;
+    }
+
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @param mixed $firstName
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMiddlename()
+    {
+        return $this->middlename;
+    }
+
+    /**
+     * @param mixed $middlename
+     */
+    public function setMiddlename($middlename)
+    {
+        $this->middlename = $middlename;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param mixed $lastName
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserName()
+    {
+        return $this->userName;
+    }
+
+    /**
+     * @param mixed $userName
+     */
+    public function setUserName($userName)
+    {
+        $this->userName = $userName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAccountCreatedAt()
+    {
+        return $this->accountCreatedAt;
+    }
+
+    /**
+     * @param mixed $accountCreatedAt
+     */
+    public function setAccountCreatedAt($accountCreatedAt)
+    {
+        $this->accountCreatedAt = $accountCreatedAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAccountUpdateAt()
+    {
+        return $this->accountUpdateAt;
+    }
+
+    /**
+     * @param mixed $accountUpdateAt
+     */
+    public function setAccountUpdateAt($accountUpdateAt)
+    {
+        $this->accountUpdateAt = $accountUpdateAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus(string $status)
+    {
+        $this->status = $status;
     }
 
     /**
@@ -92,150 +229,6 @@ class User
     public function setGroup($group): void
     {
         $this->group = $group;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param mixed $email
-     */
-    public function setEmail($email): void
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
-
-    /**
-     * @param mixed $firstName
-     */
-    public function setFirstName($firstName): void
-    {
-        $this->firstName = $firstName;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMiddlename()
-    {
-        return $this->middlename;
-    }
-
-    /**
-     * @param mixed $middlename
-     */
-    public function setMiddlename($middlename): void
-    {
-        $this->middlename = $middlename;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-
-    /**
-     * @param mixed $lastName
-     */
-    public function setLastName($lastName): void
-    {
-        $this->lastName = $lastName;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUserName()
-    {
-        return $this->userName;
-    }
-
-    /**
-     * @param mixed $userName
-     */
-    public function setUserName($userName): void
-    {
-        $this->userName = $userName;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password): void
-    {
-        $this->password = $password;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAccountCreatedAt()
-    {
-        return $this->accountCreatedAt;
-    }
-
-    /**
-     * @param mixed $accountCreatedAt
-     */
-    public function setAccountCreatedAt($accountCreatedAt): void
-    {
-        $this->accountCreatedAt = $accountCreatedAt;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAccountUpdateAt()
-    {
-        return $this->accountUpdateAt;
-    }
-
-    /**
-     * @param mixed $accountUpdateAt
-     */
-    public function setAccountUpdateAt($accountUpdateAt): void
-    {
-        $this->accountUpdateAt = $accountUpdateAt;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatus(): string
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param string $status
-     */
-    public function setStatus(string $status): void
-    {
-        $this->status = $status;
     }
 
 

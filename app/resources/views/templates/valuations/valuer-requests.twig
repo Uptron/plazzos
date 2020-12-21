@@ -1,0 +1,100 @@
+{% extends 'main.twig' %}
+{% block sidebar %}
+    {% include 'partials/staff-siderbar.twig' %}
+{% endblock %}
+ {% block contenthead %}
+
+     <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+         <div class="kt-subheader__main">
+             <h3 class="kt-subheader__title">
+                 Valuations </h3>
+             <span class="kt-subheader__separator kt-hidden"></span>
+             <div class="kt-subheader__breadcrumbs">
+                 <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                 <span class="kt-subheader__breadcrumbs-separator"></span>
+                 <a href="" class="kt-subheader__breadcrumbs-link">
+                     My Requests </a>
+
+             </div>
+         </div>
+
+     </div>
+ {% endblock %}
+{% block body %}
+
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--lg">
+            <div class="kt-portlet__head-label">
+										<span class="kt-portlet__head-icon">
+											<i class="kt-font-brand flaticon2-line-chart"></i>
+										</span>
+                <h3 class="kt-portlet__head-title">
+                    Vehicle Valuation Requests
+                </h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-wrapper">
+                    <div class="kt-portlet__head-actions">
+
+                        <a href="{{ path_for('staff.request-valuation') }}" class="btn btn-brand btn-elevate btn-icon-sm">
+                            <i class="la la-plus"></i>
+                            New Request
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__body">
+
+            <table id='datatable' class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>Client Name</th>
+                    <th>Client Phone</th>
+                    <th>Vehicle Reg No</th>
+                    <th>Vehicle Make</th>
+                    <th>Vehicle Model</th>
+                    <th>Assigned Valuer</th>
+                    <th>Date Requested</th>
+                    <th>Status</th>
+                    <th>Log Book</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for valuation in valuations %}
+
+                    <tr class="open-{{ valuations.id }}">
+                        <td>{{ valuation.clientName }}</td>
+                        <td>{{ valuation.clientPhone }}</td>
+                        <td>{{ valuation.vehicleReg }}</td>
+                        <td>{{ valuation.vehicleMake }}</td>
+                        <td>{{ valuation.vehicleModel }}</td>
+                        <td>{{ valuation.valuerID }}</td>
+                        <td>{{ valuation.dateRequested|date('Y-m-d') }}</td>
+                        <td>{{ valuation.valuationStatus }}</td>
+                        <td><a href="../uploads/{{ valuation.logBook }}"><i class="fa fa-file-download  fa-2x"></i></a></td>
+                           <td>
+                            <a href="#">
+                                <i class="fa fa-edit fa-2x"></i></a>
+                            <a href="#">
+                                <i class="fa fa-remove  fa-2x"></i></a>
+
+                        </td>
+                    </tr>
+
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+        });
+    </script>
+
+{% endblock %}
+

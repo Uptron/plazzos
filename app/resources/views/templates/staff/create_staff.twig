@@ -1,8 +1,31 @@
 {% extends 'main.twig' %}
+{% block sidebar %}
+    {% include 'partials/admin-siderbar.twig' %}
+{% endblock %}
+ {% block contenthead %}
+
+     <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+         <div class="kt-subheader__main">
+             <h3 class="kt-subheader__title">
+                 System Operations </h3>
+             <span class="kt-subheader__separator kt-hidden"></span>
+             <div class="kt-subheader__breadcrumbs">
+                 <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                 <span class="kt-subheader__breadcrumbs-separator"></span>
+                 <a href="" class="kt-subheader__breadcrumbs-link">
+                     Staff </a>
+                 <span class="kt-subheader__breadcrumbs-separator"></span>
+                 <a href="" class="kt-subheader__breadcrumbs-link">
+                     Add New </a>
+             </div>
+         </div>
+
+     </div>
+ {% endblock %}
 {% block body %}
     <div class="page-title">
         <div class="title_left">
-            <h3>Create Merchant Account</h3>
+            <h3>Create Staff Account</h3>
         </div>
     </div>
 
@@ -13,37 +36,62 @@
             <div class="x_panel">
                 <div class="x_content">
                     <br />
-                    <form action="{{ path_for('admin.save-merchant') }}" method="post" id="frm_create_merchant" data-parsley-validate class="form-horizontal form-label-left">
+                    <form action="{{ path_for('admin.save-staff') }}" method="post" id="frm_create_merchant" data-parsley-validate class="form-horizontal form-label-left">
 
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Merchant Name:</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">First Name:</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="merchant_name" name="merchant_name" class="form-control col-md-7 col-xs-12"/>
+                                <input type="text" id="first_name" name="first_name" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Merchant PhoneNumber:</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Middle Name:</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="merchant_email" name="merchant_email" class="form-control col-md-7 col-xs-12"/>
+                                <input type="text" id="middle_name" name="middle_name" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Last Name:</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="last_name" name="last_name" class="form-control col-md-7 col-xs-12"/>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Email Address:</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="merchant_phone" name="merchant_phone" class="form-control col-md-7 col-xs-12"/>
+                                <input type="text" id="email" name="email" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Physical Address:</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Department:</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea  id="merchant_address" name="merchant_address" class="form-control col-md-7 col-xs-12"></textarea>
+                            <select id="department" name="department" class="form-control col-md-7 col-xs-12">
+                                <option value="">Choose Department</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Human Resource">Human Resource</option>
+                                <option value="Project Management">Project Management</option>
+                            </select>
                             </div>
                         </div>
                         <div class="ln_solid"></div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">User Group:</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select id="group" name="group" class="form-control col-md-7 col-xs-12">
+                                <option value="">Choose User Group</option>
+                                {% for group in groups %}
+
+                                    <option value="{{ group.id }}"> {{ group.name }} </option>
+                                {% endfor %}
+                            </select>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Username:</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="merchant_username" name="merchant_username" class="form-control col-md-7 col-xs-12"/>
+                                <input type="text" id="username" name="username" class="form-control col-md-7 col-xs-12"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -63,8 +111,8 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <a href="{{ path_for('admin.manage-merchants') }}" type="button" id="btn_cancel" class="btn btn-primary">Cancel</a>
-                                <button type="button" id="btn_save" class="btn btn-success">Add Merchant</button>
+                                <a href="{{ path_for('admin.manage-staff') }}" type="button" id="btn_cancel" class="btn btn-primary">Cancel</a>
+                                <input type="submit" class="btn btn-success" name="add_user" id="add_user" value="Save User"/>
                             </div>
                         </div>
 

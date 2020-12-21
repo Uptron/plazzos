@@ -2,7 +2,9 @@
 
 
 namespace App\Service;
-use App\Entity\Valuation;
+use App\Entity\ValuationReport;
+use App\Entity\ValuationRequest;
+use App\Entity\Valuer;
 
 use Doctrine\ORM\EntityManager;
 
@@ -14,23 +16,51 @@ class ValuerService
     {
         $this->entityManager = $entityManager;
     }
-    /*
-     * GROUPS
-     *
-     */
 
 
+    //fetch user
+    function fetchValuer($user)
+    {
+
+        $valuer = $this->entityManager->getRepository('App\Entity\Valuer')->findOneBy(
+            [
+                'user' => $user
+            ]
+        );
+        return $valuer;
+
+
+    }
     public function fetchvaluations($valuer = null)
     {
         if($valuer == null) {
 
-            $valuations= $this->entityManager->getRepository('App\Entity\Valuation')->findAll();
+            $valuations= $this->entityManager->getRepository('App\Entity\ValuationRequest')->findAll();
             return $valuations;
         }
         else{
-            $valuations = $this->entityManager->getRepository('App\Entity\Valuation')->findBy(
+            $valuations = $this->entityManager->getRepository('App\Entity\ValuationRequest')->findBy(
                 [
-                    'valuer' => $valuer
+                    'valuerID' => $valuer,
+                    'valuationStatus'=>'Pending'
+                ]
+            );
+            return $valuations;
+        }
+
+    }
+    public function fetchclosedvaluations($valuer = null)
+    {
+        if($valuer == null) {
+
+            $valuations= $this->entityManager->getRepository('App\Entity\ValuationRequest')->findAll();
+            return $valuations;
+        }
+        else{
+            $valuations = $this->entityManager->getRepository('App\Entity\ValuationRequest')->findBy(
+                [
+                    'valuerID' => $valuer,
+                    'valuationStatus'=>'Completed'
                 ]
             );
             return $valuations;
@@ -42,12 +72,12 @@ class ValuerService
     {
         if ($id == null)
         {
-            $valuations= $this->entityManager->getRepository('App\Entity\Valuation')->findAll();
+            $valuations= $this->entityManager->getRepository('App\Entity\ValuationRequest')->findAll();
 
             return  $valuations;
         }
         else{
-            $valuations = $this->entityManager->getRepository('App\Entity\Valuation')->findOneBy(
+            $valuations = $this->entityManager->getRepository('App\Entity\ValuationRequest')->findOneBy(
                 [
                     'id' => $id
                 ]
@@ -57,7 +87,13 @@ class ValuerService
 
     }
 
-    function updateValuation(Valuation $valuation)
+    function updateValuationrequest(ValuationRequest $valuation)
+    {
+        $this->entityManager->persist($valuation);
+        $this->entityManager->flush();
+        return true;
+    }
+    function storevaluationreport(ValuationReport $valuation)
     {
         $this->entityManager->persist($valuation);
         $this->entityManager->flush();

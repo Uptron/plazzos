@@ -46,19 +46,19 @@ class AuthenticationAction extends BaseAction
           return $response->withRedirect('/auth/login');
       }
       //Admin
-        if($_SESSION['usergroup']==1)
+        if($_SESSION['usergroup']=='Admin')
         {
             return $response->withRedirect('/admin/');
         }
     //staff
-        else if($_SESSION['usergroup']==2)
+        else if($_SESSION['usergroup']=='Staff')
         {
             return $response->withRedirect('/staff/');
         }
     //Valuer
-        else if($_SESSION['usergroup']==3)
+        else if($_SESSION['usergroup']=='Valuer')
         {
-            return $response->withRedirect('/merchant/');
+            return $response->withRedirect('/valuer/');
         }
 
     }

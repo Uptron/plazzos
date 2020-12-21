@@ -18,10 +18,10 @@ $container['flash'] = function ($container) {
     return new Slim\Flash\Messages;
 };
 $container['valuer_service']= function ($container){
-    return new \App\Service\valuerService($container->get('em'));
+    return new \App\Service\ValuerService($container->get('em'));
 };
 $container['staff_service']= function ($container){
-    return new \App\Service\staffService($container->get('em'));
+    return new \App\Service\StaffService($container->get('em'));
 };
 $container['home_service']= function ($container){
   return new \App\Service\HomeService($container->get('em'));
@@ -57,7 +57,10 @@ $container['xls'] = function ($container) {
     return new Spreadsheet_Excel_Reader;
 };
 
+$container['upload_directory'] =function ($container) {
 
+    return  __DIR__ . '../uploads';
+};
 
 
 // -----------------------------------------------------------------------------
@@ -107,8 +110,8 @@ $container['em']=function ($container){
 $container[App\Action\ValuerAction::class] = function ($container) {
     return new App\Action\ValuerAction($container->get('view'), $container->get('logger'),$container->get('valuer_service'),  $container->get('em'),$container->get('flash'));
 };
-$container[App\Action\staffAction::class] = function ($container) {
-    return new App\Action\staffAction($container->get('view'), $container->get('logger'),$container->get('staff_service'),  $container->get('em'),$container->get('flash'));
+$container[App\Action\StaffAction::class] = function ($container) {
+    return new App\Action\StaffAction($container->get('view'), $container->get('logger'),$container->get('staff_service'),  $container->get('em'),$container->get('flash'));
 };
 
 

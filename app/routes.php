@@ -53,43 +53,34 @@ $app->group('/admin', function () use ($app) {
     $app->get('/manage-groups', 'App\Action\AdminAction:fetchgroups')->setName('admin.manage-groups');
     $app->post('/save-group', 'App\Action\AdminAction:savegroup')->setName('admin.save-group');
 
+    //Valuation Requests
+    $app->get('/valuation-requests', 'App\Action\AdminAction:valuationrequests')->setName('admin.valuation-requests');
 
 
 });
 
 
-//Merchant Routes
-$app->group('/merchant', function () use ($app) {
-    $app->get('/', App\Action\HomeAction::class)->setName('merchant.dashboard');
-    //Products
-    $app->get('/add-product', 'App\Action\HomeAction:newProduct')->setName('merchant.add-product');
-    $app->get('/manage-products', 'App\Action\HomeAction:fetchProducts')->setName('merchant.manage-products');
-    $app->post('/save-product', 'App\Action\HomeAction:saveProduct')->setName('merchant.save-product');
-    $app->post('/update-product', 'App\Action\HomeAction:updateProduct')->setName('merchant.update-product');
+//Valuer Routes
+$app->group('/valuer', function () use ($app) {
+    $app->get('/', App\Action\ValuerAction::class)->setName('valuer.dashboard');
+    //valuation
+    $app->get('/valuation-requests', 'App\Action\ValuerAction:fetchvaluationrequests')->setName('valuer.valuation-requests');
+    $app->get('/completed-requests', 'App\Action\ValuerAction:fetchcompletedrequests')->setName('valuer.completed-requests');
+    $app->post('/submit-valuation', 'App\Action\ValuerAction:submitvaluation')->setName('valuer.submit-valuation');
 
-    //Worker Groups
-    $app->get('/add-group', 'App\Action\HomeAction:newGroup')->setName('merchant.add-group');
-    $app->get('/manage-groups', 'App\Action\HomeAction:fetchGroups')->setName('merchant.manage-groups');
-    $app->post('/save-group', 'App\Action\HomeAction:saveGroup')->setName('merchant.save-group');
 
-    //Workers
-    $app->get('/add-worker', 'App\Action\HomeAction:newWorker')->setName('merchant.add-worker');
-    $app->get('/manage-workers', 'App\Action\HomeAction:fetchWorkers')->setName('merchant.manage-workers');
-    $app->post('/save-worker', 'App\Action\HomeAction:saveWorker')->setName('merchant.save-worker');
-    $app->post('/save-workers-bulk', 'App\Action\HomeAction:worker_bulk_upload')->setName('merchant.save-workers-bulk');
+})->add(new AuthenticationMiddleware($container));
 
-    //Payments
-    $app->get('/initiate-payment', 'App\Action\HomeAction:initiatePayment')->setName('merchant.initiate-payment');
-    $app->get('/payments/single-worker', 'App\Action\HomeAction:oneWorker')->setName('merchant.quick-payments-single-worker');
-    $app->get('/payments/workergroup', 'App\Action\HomeAction:workerGroups')->setName('merchant.quick-payments-workergroup');
-    $app->get('/payments/bulk-upload', 'App\Action\HomeAction:bulkUpload')->setName('merchant.quick-payments-bulk-upload');
-    $app->post('/pay-workgroup', 'App\Action\HomeAction:payWorkGroup')->setName('merchant.pay-workgroup');
-    $app->post('/product-payout', 'App\Action\HomeAction:productPayout')->setName('merchant.product-payout');
-    $app->post('/pay-single-worker', 'App\Action\HomeAction:paySingleWorker')->setName('merchant.pay-single-worker');
-    $app->get('/approve-payment', 'App\Action\HomeAction:approvePayment')->setName('merchant.approve-payment');
+//Staff Routes
 
+$app->group('/staff', function () use ($app) {
+    $app->get('/', App\Action\StaffAction::class)->setName('staff.dashboard');
+    //valuation
+    $app->get('/request-valuation', 'App\Action\StaffAction:valuationRequest')->setName('staff.request-valuation');
+    $app->get('/manage-requests', 'App\Action\StaffAction:manageRequests')->setName('staff.manage-requests');
+    $app->post('/save-request', 'App\Action\StaffAction:saveRequest')->setName('staff.save-request');
+    $app->post('/update-valuation', 'App\Action\StaffAction:updateRequest')->setName('staff.update-request');
 });
-//->add(new AuthenticationMiddleware($container))
 //API ROUTES
 $app->group('/api', function () use ($app) {
     $app->post('/install-report/update', 'App\Action\AdminAction:saveInstallReport')->setName('admin.save-install-report');

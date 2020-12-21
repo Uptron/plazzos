@@ -1,0 +1,476 @@
+<div id="kt_modal_sub_KTDatatable_remote" class="modal fade" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content" style="min-height: 590px;">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Vehicle Valuation Report
+                 </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="kt-portlet">
+                    <div class="kt-portlet__body kt-portlet__body--fit">
+                        <div class="kt-grid  kt-wizard-v1 kt-wizard-v1--white" id="kt_wizard_v1" data-ktwizard-state="step-first">
+                            <div class="kt-grid__item">
+
+                                <!--begin: Form Wizard Nav -->
+                                <div class="kt-wizard-v1__nav">
+                                    <div class="kt-wizard-v1__nav-items">
+                                        <a class="kt-wizard-v1__nav-item" href="#" data-ktwizard-type="step" data-ktwizard-state="current">
+                                            <div class="kt-wizard-v1__nav-body">
+                                                <div class="kt-wizard-v1__nav-icon">
+                                                    <i class="flaticon-user-settings"></i>
+                                                </div>
+                                                <div class="kt-wizard-v1__nav-label">
+                                                    1) Client Details
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="kt-wizard-v1__nav-item" href="#" data-ktwizard-type="step">
+                                            <div class="kt-wizard-v1__nav-body">
+                                                <div class="kt-wizard-v1__nav-icon">
+                                                    <i class="flaticon-visible"></i>
+                                                </div>
+                                                <div class="kt-wizard-v1__nav-label">
+                                                    2) Inspection Details
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="kt-wizard-v1__nav-item" href="#" data-ktwizard-type="step">
+                                            <div class="kt-wizard-v1__nav-body">
+                                                <div class="kt-wizard-v1__nav-icon">
+                                                    <i class="flaticon-price-tag"></i>
+                                                </div>
+                                                <div class="kt-wizard-v1__nav-label">
+                                                    3) Valuation
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="kt-wizard-v1__nav-item" href="#" data-ktwizard-type="step">
+                                            <div class="kt-wizard-v1__nav-body">
+                                                <div class="kt-wizard-v1__nav-icon">
+                                                    <i class="flaticon2-note"></i>
+                                                </div>
+                                                <div class="kt-wizard-v1__nav-label">
+                                                    4) Remarks
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="kt-wizard-v1__nav-item" href="#" data-ktwizard-type="step">
+                                            <div class="kt-wizard-v1__nav-body">
+                                                <div class="kt-wizard-v1__nav-icon">
+                                                    <i class="flaticon-globe"></i>
+                                                </div>
+                                                <div class="kt-wizard-v1__nav-label">
+                                                    5) Review and Submit
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <!--end: Form Wizard Nav -->
+                            </div>
+                            <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
+
+                                <!--begin: Form Wizard Form-->
+                                <form class="kt-form" id="kt_form" method="post" action="{{ path_for('valuer.submit-valuation') }}" enctype="multipart/form-data">
+
+                                    <!--begin: Form Wizard Step 1-->
+                                    <div class="kt-wizard-v1__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
+                                        <div class="kt-heading kt-heading--md">Setup Client Details</div>
+                                        <div class="kt-form__section kt-form__section--first">
+                                            <div class="kt-wizard-v1__form">
+                                                <div class="form-group">
+                                                    <label>Client Name</label>
+                                                    <input type="text" class="form-control" name="client_name" id="client_name" placeholder="Full Name" value="">
+                                               </div>
+                                                <div class="form-group">
+                                                    <label>Client Phone</label>
+                                                    <input type="text" class="form-control" name="client_phone" id="client_phone" placeholder="Phone Number" value="">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Reg No</label>
+                                                    <input type="text" class="form-control" name="reg_no" id="reg_no" placeholder="Vehicle Registration Number" value="">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
+                                                            <label>Make</label>
+                                                            <input type="text" class="form-control" name="vehicle_make" id="vehicle_make" placeholder="Vehicle Make" value="">
+                                                       </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
+                                                            <label>Model</label>
+                                                            <input type="text" class="form-control" name="vehicle_model" id="vehicle_model" placeholder="Vehicle Model" value="">
+                                                       </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
+                                                            <label>Type</label>
+                                                            <input type="text" class="form-control" name="vehicle_type" id="vehicle_type" placeholder="Vehicle Type" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
+                                                            <label>Issuing Office</label>
+                                                            <input type="text" class="form-control" name="issuing_office" id="issuing_office" placeholder="Issuing Office" value="">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
+                                                            <label>Place of Inspection:</label>
+                                                            <input type="text" class="form-control" name="place_of_inspection" id="place_of_inspection" placeholder="Place Of Inspection" value="">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
+                                                            <label>Previous Reg Country:</label>
+                                                            <input type="text" class="form-control" name="prev_reg_country" id="prev_reg_country" placeholder="Previous Reg Country" value="">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Owner Email</label>
+                                                    <input type="text" class="form-control" name="owner_email" id="owner_email" placeholder="Email" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--end: Form Wizard Step 1-->
+
+                                    <!--begin: Form Wizard Step 2-->
+                                    <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+                                        <div class="kt-heading kt-heading--md">Enter the Vehicle Inspection & Road Test Details</div>
+                                        <div class="kt-form__section kt-form__section--first">
+                                            <div class="kt-wizard-v1__form">
+                                                <div class="kt-wizard-v1__form-label">Insurance Details</div>
+                                                <div class="row">
+                                                    <div class="col-xl-4">
+                                                <div class="form-group">
+                                                    <label>Insurance Company</label>
+                                                    <input type="text" class="form-control" name="insurance_company" id="insurance_company" placeholder="Insurance Company" value="">
+                                                </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                <div class="form-group">
+                                                    <label>Policy Number</label>
+                                                    <input type="text" class="form-control" name="policy_number" id="policy_number" placeholder="Policy Number" value="">
+                                                </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
+                                                            <label>Expiry Date</label>
+                                                            <input type="date" class="form-control" name="expiry_date" id="expiry_date" placeholder="Expiry Date" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
+                                                            <label>Color</label>
+                                                            <input type="text" class="form-control" name="color" id="color" placeholder="Color" value="">
+                                                       </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
+                                                            <label>Year Of Manufacture</label>
+                                                            <input type="text" class="form-control" name="yom"  id="yom" placeholder="Year Of Manufacture" value="">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
+                                                            <label>Date of First Reg:</label>
+                                                            <input type="text" class="form-control" name="reg_date" id="reg_date" placeholder="Package Length" value="">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
+                                                            <label>Engine No</label>
+                                                            <input type="text" class="form-control" name="engine_no" id="engine_no" placeholder="Engine Number" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
+                                                            <label>Chasis Number</label>
+                                                            <input type="text" class="form-control" name="chasis_no"  id="chasis_no" placeholder="Chasis Number" value="">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
+                                                            <label>Engine Rating:</label>
+                                                            <input type="text" class="form-control" name="engine_rating" id="engine_rating" placeholder="Engine Rating" value="">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
+                                                            <label>Odometer Reading</label>
+                                                            <input type="text" class="form-control" name="odometer_reading" id="odometer_reading" placeholder="Odometer Reading" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
+                                                            <label>Serial Number</label>
+                                                            <input type="text" class="form-control" name="serial_no"  id="serial_no" placeholder="Serial Number" value="">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
+                                                            <label>Anti - Theft Fitted:</label>
+                                                            <input type="text" class="form-control" name="anti_theft" id="anti_theft" placeholder="Anti-Theft Device Fitted" value="">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--end: Form Wizard Step 2-->
+
+                                    <!--begin: Form Wizard Step 3-->
+                                    <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+                                        <div class="kt-heading kt-heading--md">Valuation</div>
+                                        <div class="kt-form__section kt-form__section--first">
+                                            <div class="kt-wizard-v1__form-label">Noted Value</div>
+                                            <div class="row">
+                                                <div class="col-xl-4">
+                                                    <div class="form-group">
+                                                        <label>Windscreen</label>
+                                                        <input type="text" class="form-control" name="windscreen" id="windscreen"  value="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4">
+                                                    <div class="form-group">
+                                                        <label>Audio System</label>
+                                                        <input type="text" class="form-control" name="audio" id="audio"  value="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4">
+                                                    <div class="form-group">
+                                                        <label>Alarm</label>
+                                                        <input type="date" class="form-control" name="alarm" id="alarm"  value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="kt-wizard-v1__form">
+                                                <div class="form-group">
+                                                    <label>Examiner Opinion</label>
+                                                     <textarea class="form-control" name="examiner_opinion" id="examiner_opinion"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Forced Sale Value</label>
+                                                    <textarea class="form-control" name="forced_sale_value" id="forced_sale_value"></textarea>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--end: Form Wizard Step 3-->
+
+                                    <!--begin: Form Wizard Step 4-->
+                                    <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+                                        <div class="kt-heading kt-heading--md">Inspection Details</div>
+                                        <div class="kt-form__section kt-form__section--first">
+                                            <div class="kt-wizard-v1__form">
+                                                <div class="row">
+                                                    <div class="col-xl-6">
+                                                <div class="form-group">
+                                                    <label>BODYWORK</label>
+                                                    <textarea class="form-control" name="bodywork" id="bodywork"></textarea>
+                                                    <span class="form-text text-muted">(Doors, Wings, Chassis, Upholstery, Windows, Bumpers, Under floor, Handles, Locks, Corrosion etc).</span>
+                                                </div>
+                                                    </div>
+                                                    <div class="col-xl-6">
+                                                <div class="form-group">
+                                                    <label>MECHANICAL</label>
+                                                    <textarea class="form-control" name="mechanical" id="mechanical"></textarea>
+                                                    <span class="form-text text-muted">(Engine, Clutch, Gearbox, Propeller & Final Drive, Transfer box, Corrosion, etc)).</span>
+                                                </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-6">
+                                                <div class="form-group">
+                                                    <label>STEERING & SUSPENSION SYSTEMS:</label>
+                                                    <textarea class="form-control" name="steering_and_suspension" id="steering_and_suspension"></textarea>
+                                                    <span class="form-text text-muted">(Brakes pedal, Booster, Master cylinders, Slave cylinder etc)</span>
+                                                </div>
+                                                    </div>
+                                                    <div class="col-xl-6">
+                                                <div class="form-group">
+                                                    <label>BRAKING SYSTEM</label>
+                                                    <textarea class="form-control" name="braking_system" id="braking_system"></textarea>
+                                                    <span class="form-text text-muted">(Doors, Wings, Chassis, Upholstery, Windows, Bumpers, Under floor, Handles, Locks, Corrosion etc).</span>
+                                                </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-6">
+                                                <div class="form-group">
+                                                    <label>ELECTRICAL SYSTEM:</label>
+                                                    <textarea class="form-control" name="electrical_system" id="electrical_system"></textarea>
+                                                    <span class="form-text text-muted">(Power mirrors, Power windows, Lights, Wiring harnesses, Motors, etc).</span>
+                                                </div>
+                                                    </div>
+                                                    <div class="col-xl-6">
+                                                <div class="form-group">
+                                                    <label>WHEELS:</label>
+                                                    <textarea class="form-control" name="wheels" id="wheels"></textarea>
+                                                    <span class="form-text text-muted">(Tyres, Rims, Wheel caps etc.)</span>
+                                                </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row">
+                                                    <div class="col-xl-6">
+                                                        <div class="form-group">
+                                                            <label>ADDED EQUIPMENT:</label>
+                                                            <textarea class="form-control" name="added_equipment" id="added_equipment"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6">
+                                                        <div class="form-group">
+                                                            <label>REMARKS</label>
+                                                            <textarea class="form-control" name="remarks" id="remarks"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-6">
+                                                        <div class="form-group">
+                                                            <label>MODIFICATIONS NOTED:</label>
+                                                            <textarea class="form-control" name="modifications_noted" id="modifications_noted"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6">
+                                                        <div class="form-group">
+                                                            <label>SPECIAL REMARKS:</label>
+                                                            <textarea class="form-control" name="special_remarks" id="special_remarks"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>GENERAL CONDITION:</label>
+                                                    <textarea class="form-control" name="general_condition" id="general_condition"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--end: Form Wizard Step 4-->
+
+                                    <!--begin: Form Wizard Step 5-->
+                                    <div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+                                        <div class="kt-heading kt-heading--md">Attachments and Submit</div>
+                                        <div class="kt-form__section kt-form__section--first">
+                                            <div class="kt-wizard-v1__form">
+                                                <div class="form-group">
+                                                    <label>Engine Details(Chasis No)</label>
+                                                    <input type="file" class="form-control" name="chasis_file" id="chasis_file" value="">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Scanned Report</label>
+                                                    <input type="file" class="form-control" name="scanned_report" id="scanned_report"  value="">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Log Book</label>
+                                                    <input type="file" class="form-control" name="log_book" id="log_book">
+                                                    <input type="hidden" class="form-control" name="valuation" id="valuation" value="">
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <!--end: Form Wizard Step 5-->
+
+                                    <!--begin: Form Actions -->
+                                    <div class="kt-form__actions">
+                                        <div class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-prev">
+                                            Previous
+                                        </div>
+                                        <div class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit">
+                                            Submit
+                                        </div>
+                                        <div class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next">
+                                            Next Step
+                                        </div>
+                                    </div>
+
+                                    <!--end: Form Actions -->
+                                </form>
+
+                                <!--end: Form Wizard Form-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-clean btn-bold btn-upper btn-font-md" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success btn-bold btn-upper btn-font-md">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--
+BEGIN FOOTER -->
+
+
+<script type="text/javascript">
+    $(document).ready(function ()
+    {
+
+
+
+
+    });
+
+
+    function submit_report(id,clientName,clientPhone,vehicleReg,vehicleMake,vehicleModel,vehicleType) {
+
+        $('#client_name').val(clientName);
+        $('#client_phone').val(clientPhone);
+        $('#reg_no').val(vehicleReg);
+        $('#vehicle_make').val(vehicleMake);
+        $('#vehicle_model').val(vehicleModel);
+        $('#vehicle_type').val(vehicleType);
+        $('#valuation').val(id);
+
+        $('#kt_modal_sub_KTDatatable_remote').modal('show');
+
+        HoldOn.close();
+    }
+</script>
