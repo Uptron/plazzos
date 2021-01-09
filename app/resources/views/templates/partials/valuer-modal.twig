@@ -77,7 +77,8 @@
                             <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
 
                                 <!--begin: Form Wizard Form-->
-                                <form class="kt-form" id="kt_form" method="post" action="{{ path_for('valuer.submit-valuation') }}" enctype="multipart/form-data">
+
+                                    <form action="{{ path_for('valuer.submit-valuation') }}"  method="post" class="kt-form" id="kt-form" enctype="multipart/form-data">
 
                                     <!--begin: Form Wizard Step 1-->
                                     <div class="kt-wizard-v1__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
@@ -86,33 +87,33 @@
                                             <div class="kt-wizard-v1__form">
                                                 <div class="form-group">
                                                     <label>Client Name</label>
-                                                    <input type="text" class="form-control" name="client_name" id="client_name" placeholder="Full Name" value="">
+                                                    <input type="text" class="form-control" name="client_name" id="client_name" placeholder="Full Name" readonly>
                                                </div>
                                                 <div class="form-group">
                                                     <label>Client Phone</label>
-                                                    <input type="text" class="form-control" name="client_phone" id="client_phone" placeholder="Phone Number" value="">
+                                                    <input type="text" class="form-control" name="client_phone" id="client_phone" placeholder="Phone Number" readonly>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Reg No</label>
-                                                    <input type="text" class="form-control" name="reg_no" id="reg_no" placeholder="Vehicle Registration Number" value="">
+                                                    <input type="text" class="form-control" name="reg_no" id="reg_no" placeholder="Vehicle Registration Number" readonly>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xl-4">
                                                         <div class="form-group">
                                                             <label>Make</label>
-                                                            <input type="text" class="form-control" name="vehicle_make" id="vehicle_make" placeholder="Vehicle Make" value="">
+                                                            <input type="text" class="form-control" name="vehicle_make" id="vehicle_make" placeholder="Vehicle Make" readonly>
                                                        </div>
                                                     </div>
                                                     <div class="col-xl-4">
                                                         <div class="form-group">
                                                             <label>Model</label>
-                                                            <input type="text" class="form-control" name="vehicle_model" id="vehicle_model" placeholder="Vehicle Model" value="">
+                                                            <input type="text" class="form-control" name="vehicle_model" id="vehicle_model" placeholder="Vehicle Model" readonly>
                                                        </div>
                                                     </div>
                                                     <div class="col-xl-4">
                                                         <div class="form-group">
                                                             <label>Type</label>
-                                                            <input type="text" class="form-control" name="vehicle_type" id="vehicle_type" placeholder="Vehicle Type" value="">
+                                                            <input type="text" class="form-control" name="vehicle_type" id="vehicle_type" placeholder="Vehicle Type" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -141,7 +142,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Owner Email</label>
-                                                    <input type="text" class="form-control" name="owner_email" id="owner_email" placeholder="Email" value="">
+                                                    <input type="text" class="form-control" name="owner_email" id="owner_email" placeholder="Email" value="" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -416,9 +417,10 @@
                                         <div class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-prev">
                                             Previous
                                         </div>
-                                        <div class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit">
+                                       <!-- <div class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit">
                                             Submit
-                                        </div>
+                                        </div>-->
+                                        <input type="submit" name="submit_btn" id="submit_btn" value="Submit Report"/>
                                         <div class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next">
                                             Next Step
                                         </div>
@@ -435,10 +437,6 @@
 
             </div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-clean btn-bold btn-upper btn-font-md" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success btn-bold btn-upper btn-font-md">Submit</button>
-            </div>
         </div>
     </div>
 </div>
@@ -450,14 +448,60 @@ BEGIN FOOTER -->
 
 
 <script type="text/javascript">
-    $(document).ready(function ()
-    {
+    $(document).ready(function() {
+        var btn = $('#kt_form').find('[data-ktwizard-type="action-submit"]');
 
+        btn.click(function () {
 
+            var data = new FormData();
+
+//Form data
+            var form_data = $('#kt-form').serializeArray();
+            $.each(form_data, function (key, input) {
+                data.append(input.name, input.value);
+            });
+            /*
+            //Chasis File
+                        var file_data = $('input[name="chasis_file"]')[0].files;
+                        for (var i = 0; i < file_data.length; i++) {
+                            data.append("chasis_file", file_data[i]);
+                        }
+            //Logbook File
+                        var log_book = $('input[name="log_book"]')[0].files;
+                        for (var i = 0; i < log_book.length; i++) {
+                            data.append("log_book", log_book[i]);
+                        }
+                    });
+            //scanned_report
+                    var scanned_report = $('input[name="scanned_report"]')[0].files;
+                    for (var i = 0; i < scanned_report.length; i++) {
+                        data.append("scanned_report", scanned_report[i]);
+                    }
+            */
+            $.ajax({
+                method: 'POST',
+                cache: false,
+                contentType: false,
+                processData: false,
+                url: '{{ path_for('valuer.submit-valuation') }}',
+                data: data,
+
+                success: function (data) {
+                    toastr.success("Success", 'Your valuation request has been sent to the valuer');
+
+                    window.setTimeout(function () {
+                        window.location.href = '/valuer/valuation-requests';
+                    }, 3000);
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(JSON.stringify(errorThrown));
+                }
+            });
+        });
 
 
     });
-
 
     function submit_report(id,clientName,clientPhone,vehicleReg,vehicleMake,vehicleModel,vehicleType) {
 
@@ -471,6 +515,7 @@ BEGIN FOOTER -->
 
         $('#kt_modal_sub_KTDatatable_remote').modal('show');
 
-        HoldOn.close();
+        //  HoldOn.close();
     }
+
 </script>

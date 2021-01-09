@@ -56,9 +56,7 @@ $app->group('/admin', function () use ($app) {
     //Valuation Requests
     $app->get('/valuation-requests', 'App\Action\AdminAction:valuationrequests')->setName('admin.valuation-requests');
 
-
-});
-
+})->add(new AuthenticationMiddleware($container));
 
 //Valuer Routes
 $app->group('/valuer', function () use ($app) {
@@ -80,7 +78,7 @@ $app->group('/staff', function () use ($app) {
     $app->get('/manage-requests', 'App\Action\StaffAction:manageRequests')->setName('staff.manage-requests');
     $app->post('/save-request', 'App\Action\StaffAction:saveRequest')->setName('staff.save-request');
     $app->post('/update-valuation', 'App\Action\StaffAction:updateRequest')->setName('staff.update-request');
-});
+})->add(new AuthenticationMiddleware($container));
 //API ROUTES
 $app->group('/api', function () use ($app) {
     $app->post('/install-report/update', 'App\Action\AdminAction:saveInstallReport')->setName('admin.save-install-report');

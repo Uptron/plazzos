@@ -4,6 +4,9 @@
 namespace App\Action;
 use App\Entity\ValuationReport;
 use App\Entity\ValuationRequest;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
 use Slim\Views\Twig;
 use Psr\Log\LoggerInterface;
 use App\Service\valuerService;
@@ -89,12 +92,48 @@ class ValuerAction extends BaseAction
         $special_remarks = $request->getParam('special_remarks');
         $modifications_noted = $request->getParam('modifications_noted');
         $general_condition = $request->getParam('general_condition');
-        $chasis_file = $request->getParam('chasis_file');
-        $scanned_report = $request->getParam('scanned_report');
-        $log_book = $request->getParam('log_book');
         $status='Completed';
         $valuation_id=$request->getParam('valuation');
+/*
+        $uploadedFiles = $request->getUploadedFiles();
 
+        // Chasis
+        $chasis_file = $uploadedFiles['chasis_file'];
+
+        if (empty($chasis_file)) {
+            throw new Exception('No file has been send');
+        }
+        if ($chasis_file->getError() === UPLOAD_ERR_OK) {
+
+            $chasis_upload =$this->moveUploadedFile('../uploads/', $chasis_file);
+            $response->write('uploaded ' . $chasis_upload . '<br/>');
+
+        }
+        //Log Book
+        $log_book = $uploadedFiles['log_book'];
+
+        if (empty($log_book)) {
+            throw new Exception('No file has been send');
+        }
+        if ($log_book->getError() === UPLOAD_ERR_OK) {
+
+            $logbook =$this->moveUploadedFile('../uploads/', $log_book);
+            $response->write('uploaded ' . $logbook . '<br/>');
+
+        }
+        //Scanned Report
+        $scanned_report = $uploadedFiles['scanned_report'];
+
+        if (empty($chasis_file)) {
+            throw new Exception('No file has been send');
+        }
+        if ($scanned_report->getError() === UPLOAD_ERR_OK) {
+
+            $scannedreport =$this->moveUploadedFile('../uploads/', $scanned_report);
+            $response->write('uploaded ' . $scannedreport . '<br/>');
+
+        }
+*/
         $valuer = $this->valuerService->fetchValuer($_SESSION['user']);
         $valuation = $this->valuerService->fetchvaluation($valuation_id);
 
@@ -132,15 +171,65 @@ class ValuerAction extends BaseAction
         $valuationreport->setSpecialremarks($special_remarks);
         $valuationreport->setModificationsnoted($modifications_noted);
         $valuationreport->setGeneralcondition($general_condition);
+        /*$valuationreport->setEngineattachment($chasis_upload);
+        $valuationreport->setLogbookattachment($logbook);
+        $valuationreport->setReportattachment($scannedreport);*/
         $valuationreport->setDateDone(new \DateTime());
         $valuationreport->setStatus($status);
 
+        $update=$this->valuerService->updateValuationrequest($valuation);
+        $save=$this->valuerService->storevaluationreport($valuationreport);
 
-       $this->valuerService->storevaluationreport($valuationreport);
-       $this->valuerService->updateValuationrequest($valuation);
+
+
+       //Send Email Alert
+        if($save)
+        {
+            $body='Greetings<br> Vehicle valuation has been completed successfully.';
+            //Send email to Valuer
+            $mail = new PHPMailer(true);
+
+            try {
+                //Server settings
+                $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+                $mail->isSMTP();                                            // Send using SMTP
+
+                $mail->Host="smtp.gmail.com";
+                $mail->Port=587;
+                $mail->SMTPSecure="tls";
+                $mail->SMTPAuth=true;
+                $mail->Username="valuations@mwananchicredit.com";
+                $mail->Password="Mwana@2021credit";
+
+                //Recipients
+                $mail->setFrom('valuations@mwananchicredit.com', 'Mwananchi Credit');
+                $mail->addAddress($valuer->getEmail(),$valuer->getValuerName());     // Add a recipient
+                $mail->addCC('uptronafrica@gmail.com');
+
+                // Content
+                $mail->isHTML(true);                                  // Set email format to HTML
+                $mail->Subject = 'Vehicle Valuation Request';
+                $mail->Body    = $body;
+                $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+                $mail->send();
+
+            } catch (Exception $e) {
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
+        }
 
        return $response->withRedirect('/valuer/');
     }
 
+    public function moveUploadedFile($directory, UploadedFile $uploadedFile)
+    {
+        $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
+        $basename = bin2hex(random_bytes(8)); // see http://php.net/manual/en/function.random-bytes.php
+        $filename = sprintf('%s.%0.8s', $basename, $extension);
 
+        $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . $filename);
+
+        return $filename;
+    }
 }

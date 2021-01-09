@@ -36,7 +36,10 @@ final class StaffAction extends BaseAction
     }
     public function __invoke(Request $request, Response $response, $args) {
 
-        $this->view->render($response, 'staff-dashboard.twig');
+        $this->view->render($response, 'staff-dashboard.twig',
+        [
+            'today'=>new \DateTime()
+        ]);
         return $response;
     }
 
@@ -68,11 +71,13 @@ final class StaffAction extends BaseAction
 
         $client_name=$request->getParam('client_name');
         $client_phone=$request->getParam('client_phone');
+        $client_email=$request->getParam('client_email');
         $vehicle_reg=$request->getParam('vehicle_reg');
         $vehicle_model=$request->getParam('vehicle_model');
         $vehicle_make=$request->getParam('vehicle_make');
+        $vehicle_type=$request->getParam('vehicle_type');
         $valuer=$request->getParam('valuer');
-        $logbook=$request->getParam('logbook');
+        //$logbook=$request->getParam('logbook');
         $comments=$request->getParam('comments');
         $status='Pending';
         $user=$_SESSION['user'];
@@ -82,7 +87,8 @@ final class StaffAction extends BaseAction
         $uploadedFiles = $request->getUploadedFiles();
 
         // handle single input with single file upload
-        $uploadedFile = $uploadedFiles['logbook'];
+        $uploadedFile = $uploadedFiles['file'];
+
         if (empty($uploadedFile)) {
             throw new Exception('No file has been send');
         }
@@ -96,9 +102,11 @@ final class StaffAction extends BaseAction
         $valuation=new ValuationRequest();
         $valuation->setClientName($client_name);
         $valuation->setClientPhone($client_phone);
+        $valuation->setClientEmail($client_email);
         $valuation->setVehicleReg($vehicle_reg);
         $valuation->setVehicleMake($vehicle_make);
         $valuation->setVehicleModel($vehicle_model);
+        $valuation->setVehicleType($vehicle_type);
         $valuation->setValuerID($valuers);
         $valuation->setLogBook($filename);
         $valuation->setValuationStatus($status);
@@ -107,7 +115,7 @@ final class StaffAction extends BaseAction
         $valuation->setRequester($staff);
         $valuation->setComment($comments);
 
-        $save = $this->staffService->storeValuationRequest($valuation);
+       $save = $this->staffService->storeValuationRequest($valuation);
 
         if($save)
         {
@@ -135,14 +143,13 @@ final class StaffAction extends BaseAction
 
                 //Recipients
                 $mail->setFrom('uptronafrica@gmail.com', 'Mwananchi Credit');
-                $mail->addAddress('juliusgitonga2013@gmail.com', 'Julius Gitonga');     // Add a recipient
-                $mail->addAddress('julius.gitonga@uptronafrica.com');               // Name is optional
-                $mail->addReplyTo('info@mwananchicredit.com', 'Information');
-               // $mail->addCC('cc@example.com');
+                $mail->addAddress($valuers->getEmail(),$valuers->getValuerName());     // Add a recipient
+                //$mail->addReplyTo('info@mwananchicredit.com', 'Information');
+                $mail->addCC('info@mwananchicredit.com');
                 //$mail->addBCC('bcc@example.com');
 
                 // Attachments
-               // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+                 $mail->addAttachment('../uploads/'.$filename);         // Add attachments
                // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
                 // Content

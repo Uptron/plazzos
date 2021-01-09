@@ -64,27 +64,18 @@
                             <div class="kt-widget24__details">
                                 <div class="kt-widget24__info">
                                     <h4 class="kt-widget24__title">
-                                        Total Profit
+                                        Total Requests
                                     </h4>
                                     <span class="kt-widget24__desc">
-															All Customs Value
-														</span>
+															All Valuation Requests
+									</span>
                                 </div>
                                 <span class="kt-widget24__stats kt-font-brand">
-														$18M
+														18
 													</span>
                             </div>
-                            <div class="progress progress--sm">
-                                <div class="progress-bar kt-bg-brand" role="progressbar" style="width: 78%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="kt-widget24__action">
-													<span class="kt-widget24__change">
-														Change
-													</span>
-                                <span class="kt-widget24__number">
-														78%
-													</span>
-                            </div>
+
+
                         </div>
 
                         <!--end::Total Profit-->
@@ -96,27 +87,18 @@
                             <div class="kt-widget24__details">
                                 <div class="kt-widget24__info">
                                     <h4 class="kt-widget24__title">
-                                        New Feedbacks
+                                        Pending Requets
                                     </h4>
                                     <span class="kt-widget24__desc">
-															Customer Review
+															Awaiting Valuer Response
 														</span>
                                 </div>
                                 <span class="kt-widget24__stats kt-font-warning">
-														1349
+														10
 													</span>
                             </div>
-                            <div class="progress progress--sm">
-                                <div class="progress-bar kt-bg-warning" role="progressbar" style="width: 84%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="kt-widget24__action">
-													<span class="kt-widget24__change">
-														Change
-													</span>
-                                <span class="kt-widget24__number">
-														84%
-													</span>
-                            </div>
+
+
                         </div>
 
                         <!--end::New Feedbacks-->
@@ -128,27 +110,17 @@
                             <div class="kt-widget24__details">
                                 <div class="kt-widget24__info">
                                     <h4 class="kt-widget24__title">
-                                        New Orders
+                                        Completed Requests
                                     </h4>
                                     <span class="kt-widget24__desc">
-															Fresh Order Amount
+															Valuer Responded To Request
 														</span>
                                 </div>
                                 <span class="kt-widget24__stats kt-font-danger">
-														567
+														8
 													</span>
                             </div>
-                            <div class="progress progress--sm">
-                                <div class="progress-bar kt-bg-danger" role="progressbar" style="width: 69%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="kt-widget24__action">
-													<span class="kt-widget24__change">
-														Change
-													</span>
-                                <span class="kt-widget24__number">
-														69%
-													</span>
-                            </div>
+
                         </div>
 
                         <!--end::New Orders-->
@@ -160,27 +132,17 @@
                             <div class="kt-widget24__details">
                                 <div class="kt-widget24__info">
                                     <h4 class="kt-widget24__title">
-                                        New Users
+                                        Requested Today
                                     </h4>
                                     <span class="kt-widget24__desc">
-															Joined New User
+															{{ today|date('y-m-d') }}
 														</span>
                                 </div>
                                 <span class="kt-widget24__stats kt-font-success">
-														276
-													</span>
+													0
+								</span>
                             </div>
-                            <div class="progress progress--sm">
-                                <div class="progress-bar kt-bg-success" role="progressbar" style="width: 90%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="kt-widget24__action">
-													<span class="kt-widget24__change">
-														Change
-													</span>
-                                <span class="kt-widget24__number">
-														90%
-													</span>
-                            </div>
+
                         </div>
 
                         <!--end::New Users-->
@@ -190,6 +152,176 @@
         </div>
 
         <!--end:: Widgets/Stats-->
+
+        <!--Begin::Section-->
+        <div class="row">
+            <div class="col-xl-6">
+
+                <!--begin:: Widgets/Sale Reports-->
+                <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">
+                                Pending Requests
+                            </h3>
+                        </div>
+
+                    </div>
+                    <div class="kt-portlet__body">
+
+                        <!--Begin::Tab Content-->
+                        <div class="tab-content">
+
+                            <!--begin::tab 1 content-->
+                            <div class="tab-pane active" id="kt_widget11_tab1_content">
+
+                                <!--begin::Widget 11-->
+                                <div class="kt-widget11">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <td style="width:5%">#</td>
+                                                <td style="width:23%">Customer Name</td>
+                                                <td style="width:25%">Vehicle Registration</td>
+                                                <td style="width:22%">Date Requested</td>
+                                                <td style="width:25%">Valuer Name</td>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>
+
+                                                    <input type="checkbox"><span></span>
+
+                                                </td>
+                                                <td>
+                                                    Moses Wetangula
+                                                </td>
+                                                <td>19,200</td>
+                                                <td>$63</td>
+                                                <td><span class="kt-badge kt-badge--inline kt-badge--brand">new</span></td>
+
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="kt-widget11__action kt-align-right">
+                                        <button type="button" class="btn btn-label-brand btn-bold btn-sm">More Details</button>
+                                    </div>
+                                </div>
+
+                                <!--end::Widget 11-->
+                            </div>
+
+                            <!--end::tab 1 content-->
+
+                        </div>
+
+                        <!--End::Tab Content-->
+                    </div>
+                </div>
+
+                <!--end:: Widgets/Sale Reports-->
+            </div>
+            <div class="col-xl-6">
+
+                <!--begin:: Widgets/Order Statistics-->
+                <div class="kt-portlet kt-portlet--height-fluid">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">
+                                Order Statistics
+                            </h3>
+                        </div>
+                        <div class="kt-portlet__head-toolbar">
+                            <a href="#" class="btn btn-label-brand btn-bold btn-sm dropdown-toggle" data-toggle="dropdown">
+                                Export
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right">
+                                <ul class="kt-nav">
+                                    <li class="kt-nav__section kt-nav__section--first">
+                                        <span class="kt-nav__section-text">Choose an action:</span>
+                                    </li>
+                                    <li class="kt-nav__item">
+                                        <a href="#" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon flaticon2-graph-1"></i>
+                                            <span class="kt-nav__link-text">Export</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-nav__item">
+                                        <a href="#" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
+                                            <span class="kt-nav__link-text">Save</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-nav__item">
+                                        <a href="#" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon flaticon2-layers-1"></i>
+                                            <span class="kt-nav__link-text">Import</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-nav__item">
+                                        <a href="#" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
+                                            <span class="kt-nav__link-text">Update</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-nav__item">
+                                        <a href="#" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon flaticon2-file-1"></i>
+                                            <span class="kt-nav__link-text">Customize</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body kt-portlet__body--fluid">
+                        <div class="kt-widget12">
+                            <div class="kt-widget12__content">
+                                <div class="kt-widget12__item">
+                                    <div class="kt-widget12__info">
+                                        <span class="kt-widget12__desc">Annual Taxes EMS</span>
+                                        <span class="kt-widget12__value">$400,000</span>
+                                    </div>
+                                    <div class="kt-widget12__info">
+                                        <span class="kt-widget12__desc">Finance Review Date</span>
+                                        <span class="kt-widget12__value">July 24,2019</span>
+                                    </div>
+                                </div>
+                                <div class="kt-widget12__item">
+                                    <div class="kt-widget12__info">
+                                        <span class="kt-widget12__desc">Avarage Revenue</span>
+                                        <span class="kt-widget12__value">$60M</span>
+                                    </div>
+                                    <div class="kt-widget12__info">
+                                        <span class="kt-widget12__desc">Revenue Margin</span>
+                                        <div class="kt-widget12__progress">
+                                            <div class="progress kt-progress--sm">
+                                                <div class="progress-bar kt-bg-brand" role="progressbar" style="width: 40%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <span class="kt-widget12__stat">
+																	40%
+																</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="kt-widget12__chart" style="height:250px;">
+                                <canvas id="kt_chart_order_statistics"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--end:: Widgets/Order Statistics-->
+            </div>
+        </div>
+
+        <!--End::Section-->
 
         <!--End::Dashboard 6-->
     </div>

@@ -28,6 +28,10 @@ class ValuationRequest
     /**
      * @ORM\Column(type="string")
      */
+    private $clientEmail;
+    /**
+     * @ORM\Column(type="string",nullable=true)
+     */
     private $vehicleReg;
     /**
      * @ORM\Column(type="string")
@@ -318,6 +322,22 @@ class ValuationRequest
     public function setVehicleType($vehicleType): void
     {
         $this->vehicleType = $vehicleType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getClientEmail()
+    {
+        return $this->clientEmail;
+    }
+
+    /**
+     * @param mixed $clientEmail
+     */
+    public function setClientEmail($clientEmail): void
+    {
+        $this->clientEmail = $clientEmail;
     }
 
 

@@ -47,4 +47,83 @@
 
     </div>
 {% endblock %}
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+
+            $('#btn_save').click(function () {
+
+                var client_name = $('#client_name').val();
+                var client_phone=$('#client_phone').val();
+                var client_email=$('#client_email').val();
+                var vehicle_reg=$('#vehicle_reg').val();
+                var vehicle_make=$('#vehicle_make').val();
+                var vehicle_model=$('#vehicle_model').val();
+                var vehicle_type=$('#vehicle_type').val();
+                var valuer=$('#valuer').val();
+                var logbook=$('#logbook').val();
+                var comments=$('#comments').val();
+
+
+
+                if (client_name == '') {
+                    toastr.error("Error Occured!!!", 'You Must Provide The Client Name');
+                    return;
+                }
+
+                if (client_phone == '') {
+                    toastr.error("Error Occured!!!", 'You Must Provide The Client Name');
+                    return;
+                }
+                if (vehicle_reg == '') {
+                    toastr.error("Error Occured!!!", 'You have not provided the vehicle registration number');
+                    return;
+                }
+                if (vehicle_make == '') {
+                    toastr.error("Error Occured!!!", 'You must state the vehicle make');
+                    return;
+                }
+                if (vehicle_model == '') {
+                    toastr.error("Error Occured!!!", 'You must state the vehicle model');
+                    return;
+                }
+                if (valuer == '') {
+                    toastr.error("Error Occured!!!", 'You must specify a Valuer*');
+                    return;
+                }
+                if (logbook == '') {
+                    toastr.error("Error Occured!!!", 'Kindly attach the vehicle logbook');
+                    return;
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ path_for('staff.save-request') }}',
+                    data: {
+                        client_name: client_name,
+                        client_phone: client_phone,
+                        client_email: client_email,
+                        vehicle_reg:vehicle_reg,
+                        vehicle_model:vehicle_model,
+                        vehicle_make:vehicle_make,
+                        vehicle_type:vehicle_type,
+                        valuer:valuer,
+                        logbook:logbook,
+                        comments:comments
+
+                    }
+                }).success(function (data) {
+                        toastr.success("Success", 'Your valuation request has been sent to the valuer');
+
+                        window.setTimeout(function(){
+                            window.location.href='/staff/manage-requests';
+                        }, 3000);
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+                        alert(JSON.stringify(errorThrown));
+                    });
+            });
+
+
+        });
+    </script>
+{% endblock %}

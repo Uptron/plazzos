@@ -38,66 +38,105 @@ var KTWizard1 = function () {
 			// Validation rules
 			rules: {	
 				//= Step 1
-				address1: {
+				issuing_office: {
 					required: true 
 				},
-				postcode: {
+				place_of_inspection: {
 					required: true
-				},	   
-				city: {
+				},
+				prev_reg_country: {
 					required: true
-				},	 
-				state: {
-					required: true
-				},	 
-				country: {
-					required: true
-				},	 
+				},
 
 				//= Step 2
-				package: {
+				insurance_company: {
 					required: true
 				},
-				weight: {
-					required: true
-				},	
-				width: {
+				policy_number: {
 					required: true
 				},
-				height: {
+				expiry_date: {
 					required: true
-				},	
-				length: {
+				},
+				color: {
 					required: true
-				},			   
+				},
+				yom: {
+					required: true
+				},
+				reg_date: {
+					required: true
+				},
+				engine_no: {
+					required: true
+				},
+				chasis_no: {
+					required: true
+				},
+				engine_rating: {
+					required: true
+				},
+				odometer_reading: {
+					required:true
+				},
+				serial_no: {
+					required:true
+				},
+				anti_theft: {
+                    required:true
+				},
 
 				//= Step 3
-				delivery: {
+				windscreen: {
 					required: true
 				},
-				packaging: {
+				audio: {
 					required: true
-				},	
-				preferreddelivery: {
+				},
+				alarm: {
 					required: true
-				},	
+				},
+				examiner_opinion: {
+					required:true
+				},
+				forced_sale_value:{
+					required:true
+				},
 
 				//= Step 4
-				locaddress1: {
+				bodywork: {
 					required: true 
 				},
-				locpostcode: {
+				mechanical: {
 					required: true
-				},	   
-				loccity: {
+				},
+				steering_and_suspension: {
 					required: true
-				},	 
-				locstate: {
+				},
+				braking_system: {
 					required: true
-				},	 
-				loccountry: {
+				},
+				electrical_system: {
 					required: true
-				},	
+				},
+				wheels:{
+					required:true
+				},
+				added_equipment:{
+					required:true
+				},
+				remarks:{
+					required:true
+				},
+				modifications_noted:{
+					required:true
+				},
+				special_remarks:{
+					required:true
+				},
+				general_condition:{
+					required:true
+				}
 			},
 			
 			// Display error  
@@ -138,10 +177,13 @@ var KTWizard1 = function () {
 
 						swal({
 							"title": "", 
-							"text": "The application has been successfully submitted!", 
+							"text": "The valuation has been successfully submitted!",
 							"type": "success",
 							"confirmButtonClass": "btn btn-secondary"
 						});
+
+						window.location.href='/valuer/valuation-requests';
+						return false;
 					}
 				});
 			}
@@ -156,7 +198,7 @@ var KTWizard1 = function () {
 
 			initWizard(); 
 			initValidation();
-			initSubmit();
+			//initSubmit();
 		}
 	};
 }();
